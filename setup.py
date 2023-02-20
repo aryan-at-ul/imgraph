@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='imgraph',
-    version='0.0.1',
+    version='0.0.2',
     description='Converts an image to a graph and apply GNNs for various tasks.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -23,7 +23,7 @@ setup(
         'Programming Language :: Python :: 3.9',
     ],
     keywords='image to graph',
-    #packages=find_packages('src'),
+    # packages=find_packages(where="src"),
     py_modules = ["imgraph"],
     package_dir={'': 'src'},
     install_requires=required_packages,

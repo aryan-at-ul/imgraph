@@ -1,6 +1,6 @@
 import os
 import sys
-from feature_extraction import fet_from_img
+# from feature_extraction import fet_from_img
 import networkx as nx
 import numpy as np
 import cv2
@@ -27,6 +27,63 @@ import matplotlib.pyplot as plt
 import argparse
 from skimage.future import graph
 from skimage.measure import regionprops
+import torch
+import torch.nn as nn
+import torchvision.models as models
+import torchvision.transforms as transforms
+from torch.autograd import Variable
+from PIL import Image
+import torchvision.io as io
+import numpy as np
+# from IPython.display import Image as dImage
+import os
+from torchvision.models.feature_extraction import get_graph_node_names
+from torchvision.models.feature_extraction import create_feature_extractor
+
+from torchvision import transforms
+import torchvision 
+import torch
+
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+from random import randint
+import pandas as pd
+import pickle
+# from models import get_feture_extractor_model
+from functools import lru_cache
+
+
+current_file_path = os.path.dirname(os.path.abspath(__file__))
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+import torch
+import torch.nn as nn
+import torchvision.models as models
+import torchvision.transforms as transforms
+from torch.autograd import Variable
+from PIL import Image
+import torchvision.io as io
+import numpy as np
+# from IPython.display import Image as dImage
+import os
+from torchvision.models.feature_extraction import get_graph_node_names
+from torchvision.models.feature_extraction import create_feature_extractor
+
+from torchvision import transforms
+import torchvision 
+import torch
+
+from sklearn.cluster import KMeans
+# from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+# from random import randint
+# import pandas as pd
+import pickle
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -78,6 +135,44 @@ def draw_graph_as_image(G,segments):
         a.set_aspect('equal')
         a.axis('off')
     plt.show()
+
+
+
+def fet_from_img(img, model, feature_extractor, i = 0):
+
+   # print("reaching here")
+#    model, feature_extractor = get_model(model_name)
+   mean = [0.485, 0.456, 0.406]
+   std = [0.229, 0.224, 0.225]
+
+   # print(img.shape)
+
+   mean = [0.485, 0.485, 0.485]
+   std = [0.229, 0.229, 0.229]
+
+   transform_norm = transforms.Compose([transforms.ToTensor(),
+   transforms.Resize((224,224)),transforms.Normalize(mean, std)])
+
+   transform_norm = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Resize((224,224)),
+    #transforms.CenterCrop(224),
+   #  transforms.RandomRotation(20),
+   #  transforms.RandomHorizontalFlip(),
+    transforms.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+   # get normalized image
+   img_normalized = transform_norm(img).float()
+   img_normalized = img_normalized.unsqueeze_(0)
+   # input = Variable(image_tensor)
+   img_normalized = img_normalized.to(device)
+   # print(img_normalized.shape)
+   with torch.no_grad():
+      model.eval()
+      output =model(img_normalized)
+      out = feature_extractor(img_normalized)
+      # return out['flatten'],i # this is for densenet and effnet
+      return out['flatten'],img,i#.cpu().detach().numpy().ravel(),i
 
 
 

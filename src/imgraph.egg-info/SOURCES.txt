@@ -1,7 +1,16 @@
 LICENSE.txt
+MANIFEST.in
 README.md
+requirements.txt
 setup.py
+test.py
+xray_sample.jpeg
+dist/imgraph-0.0.3-py3-none-any.whl
+src/__init__.py
+src/feature_extraction.py
 src/imgraph.py
+src/__pycache__/feature_extraction.cpython-38.pyc
+src/__pycache__/imgraph.cpython-38.pyc
 src/imgraph.egg-info/PKG-INFO
 src/imgraph.egg-info/SOURCES.txt
 src/imgraph.egg-info/dependency_links.txt

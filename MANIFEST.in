@@ -1,0 +1,7 @@
+include *.jpeg
+include *.py
+include *.txt
+recursive-include build *.py
+recursive-include dist *.whl
+recursive-include src *.py
+recursive-include src *.pyc
