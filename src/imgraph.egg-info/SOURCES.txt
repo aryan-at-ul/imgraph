@@ -1,0 +1,9 @@
+LICENSE.txt
+README.md
+setup.py
+src/imgraph.py
+src/imgraph.egg-info/PKG-INFO
+src/imgraph.egg-info/SOURCES.txt
+src/imgraph.egg-info/dependency_links.txt
+src/imgraph.egg-info/requires.txt
+src/imgraph.egg-info/top_level.txt
