@@ -1,6 +1,6 @@
-#IMGRAPH 
+# IMGRAPH 
 
-###Used for converting image to graph, uses superpixel method for node creation, extract features from CNN models. 
+### Used for converting image to graph, uses superpixel method for node creation, extract features from CNN models. 
 
 Example Usage: 
 
