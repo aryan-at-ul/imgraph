@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: imgraph
-Version: 0.0.2
+Version: 0.0.4
 Summary: Converts an image to a graph and apply GNNs for various tasks.
 Home-page: https://github.com/aryan-at-ul/imgraph
 Author: Aryan Singh
@@ -14,5 +14,20 @@ Classifier: Programming Language :: Python :: 3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
 
-# testpackage
-testing an image graph package, this will be moved to imgraph repo. 
+#IMGRAPH 
+
+###Used for converting image to graph, uses superpixel method for node creation, extract features from CNN models. 
+
+Example Usage: 
+
+```
+from imgraph import image_to_graph,draw_graph_as_image
+
+#use a test image
+#model_name  -> default resnet18, possible value densenet121 and efficientnet-b0
+g,seg = image_to_graph('test.jpeg', n_segments = 10, model_name = "densenet121")
+
+
+draw_graph_as_image(g,seg)
+```
+

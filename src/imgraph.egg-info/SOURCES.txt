@@ -5,6 +5,7 @@ requirements.txt
 setup.py
 test.py
 xray_sample.jpeg
+dist/imgraph-0.0.2-py3-none-any.whl
 dist/imgraph-0.0.3-py3-none-any.whl
 src/__init__.py
 src/feature_extraction.py
