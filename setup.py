@@ -1,35 +1,96 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
-with open('README.md', encoding='utf-8') as f:
-    long_description = f.read()
+__version__ = '0.0.5'
 
-with open('requirements.txt') as f:
-    required_packages = f.read().splitlines()
+install_requires = [
+    'tqdm',
+    'numpy',
+    'scipy',
+    'jinja2',
+    'requests',
+    'pyparsing',
+    'scikit-learn',
+    'psutil>=5.8.0',
+]
+
+graphgym_requires = [
+    'yacs',
+    'hydra-core',
+    'protobuf<4.21',
+    'pytorch-lightning',
+]
+
+modelhub_requires = [
+    'huggingface_hub',
+]
+
+full_requires = graphgym_requires + modelhub_requires + [
+    'ase',
+    'h5py',
+    'numba',
+    'sympy',
+    'pandas',
+    'captum',
+    'rdflib',
+    'trimesh',
+    'networkx',
+    'graphviz',
+    'tabulate',
+    'matplotlib',
+    'torchmetrics',
+    'scikit-image',
+    'pytorch-memlab',
+    'pgmpy',
+    'opt_einsum',  # required for pgmpy
+    'statsmodels',
+    "scikit-image",
+    "opencv-python",
+    "timm",
+    "torchvision",
+    "torchmetrics",
+    "torchvision",
+    "torch-scatter",
+    "torch-sparse",
+    "torch-cluster",
+    "torch-geometric",
+    "torch-spline-conv",
+    "torch-geometric-temporal",
+    "pyg-lib",
+    "torch-geometric"
+
+]
+
+benchmark_requires = [
+    'protobuf<4.21',
+    'wandb',
+    'pandas',
+    'networkx',
+    'matplotlib',
+]
+
+test_requires = [
+    'pytest',
+    'pytest-cov',
+    'onnx',
+    'onnxruntime',
+]
+
+dev_requires = test_requires + [
+    'pre-commit',
+]
 
 setup(
     name='imgraph',
-    version='0.0.4',
-    description='Converts an image to a graph and apply GNNs for various tasks.',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    url='https://github.com/aryan-at-ul/imgraph',
-    author='Aryan Singh',
-    author_email='aryan.singh@ul.ie',
-    license='MIT',
-    classifiers=[
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-    ],
-    keywords='image to graph',
-    # packages=find_packages(where="src"),
-    py_modules = ["imgraph"],
-    package_dir={'': 'src'},
-    install_requires=required_packages,
-    #entry_points={
-    #    'console_scripts': [
-    #        'imgraph=imgraph.imgraph:main',
-    #    ],
-    #},
+    version=__version__,
+    install_requires=install_requires,
+    extras_require={
+        'graphgym': graphgym_requires,
+        'modelhub': modelhub_requires,
+        'full': full_requires,
+        'benchmark': benchmark_requires,
+        'test': test_requires,
+        'dev': dev_requires,
+    },
+    packages=find_packages(),
+    # include_package_data=True,  # Ensure that `*.jinja` files are found.
 )
