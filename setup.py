@@ -55,8 +55,9 @@ full_requires = graphgym_requires + modelhub_requires + [
     "torch-geometric",
     "torch-spline-conv",
     "torch-geometric-temporal",
-    "pyg-lib",
-    "torch-geometric"
+    "torch",
+    "torch-geometric",
+    # "Pillow",
 
 ]
 
@@ -82,7 +83,7 @@ dev_requires = test_requires + [
 setup(
     name='imgraph',
     version=__version__,
-    install_requires=install_requires,
+    install_requires=full_requires,
     extras_require={
         'graphgym': graphgym_requires,
         'modelhub': modelhub_requires,
