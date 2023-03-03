@@ -12,12 +12,14 @@ import networkx as nx
 import time
 import cv2
 from .feature_extractor import get_feture_extractor_model,feature_from_img
+from .transform_graph import load_and_transform
 import  errno
 from concurrent.futures import ThreadPoolExecutor
 import concurrent.futures
 import time
 import traceback
-
+from imgraph.reader import read_image
+from imgraph.writer import write_graph
 
 
 def image_transform_slic(img : np.ndarray, n_segments = 10, compactness = 10, sigma = 1, multichannel = True):
@@ -59,7 +61,7 @@ def make_graph(img : np.ndarray, name : str, n_segments = 10, compactness = 10, 
     return G, segments
 
 
-def add_features_to_graph(img : np.ndarray, G : nx.Graph, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):
+def graph_generator(img : np.ndarray, model_name : str, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):
     """
     Args: img: numpy array of the image
             segments: numpy array of the segments of the image
@@ -108,3 +110,21 @@ def add_features_to_graph(img : np.ndarray, G : nx.Graph, name : str, n_segments
         G2.add_weighted_edges_from([(e[0],e[1],G[e[0]][e[1]]['weight'])])
 
     return G2,segments
+
+
+def graph_generator_from_path(img_path : str, model_name : str, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):   
+    """
+    Args: img_path: path of the image
+            segments: numpy array of the segments of the image
+            name: name of the graph
+            task: classification or regression
+            type: type of the graph train/test
+    Returns: PYG Data object
+    """
+    img = read_image(img_path)
+    G,segments = graph_generator(img, model_name, name, n_segments, compactness, sigma, multichannel, task, type)
+    write_graph(G, name)
+    data = None
+    if task == 'classification':
+        data = load_and_transform(G, name, type)
+    return data if task == 'classification' else G

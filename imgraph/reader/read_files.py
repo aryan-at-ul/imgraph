@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import pickle
 import networkx as nx
+from skimage.io import imread
 
 def read_image(path, backend='PIL', **kwargs):
     """Reads an image from a file.
@@ -13,25 +14,37 @@ def read_image(path, backend='PIL', **kwargs):
     Returns:
         A PIL image.
     """
-    img = None
-    if backend == 'PIL':
-    
-        img =  Image.open(path).convert('RGB')
+    image = imread(path)
+    height, widht = 0,0
+    if len(image.shape) >= 3:
+        height, width, channel = image.shape
     else:
-        img =  cv2.imread(path)
+        height,width = image.shape
+    #height, width = image.shape
+    image = image[0:height, 10:width-10]
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = cv2.resize(image, (500, 500))
+    # image = img_as_float(image)
+    return image
+    # img = None
+    # if backend == 'PIL':
+    
+    #     img =  Image.open(path).convert('RGB')
+    # else:
+    #     img =  cv2.imread(path)
 
-    if 'upchannel' in kwargs and kwargs['upchannel'] and backend == 'PIL':
-        img = img.convert('RGB')
-    elif 'upchannel' in kwargs and kwargs['upchannel'] and backend == 'cv2':
-        # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        img = np.stack((img,)*3, axis=-1)
+    # if 'upchannel' in kwargs and kwargs['upchannel'] and backend == 'PIL':
+    #     img = img.convert('RGB')
+    # elif 'upchannel' in kwargs and kwargs['upchannel'] and backend == 'cv2':
+    #     # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    #     img = np.stack((img,)*3, axis=-1)
 
-    if 'resize' in kwargs and backend == 'PIL':
-        img = img.resize(kwargs['resize'])
-    elif 'resize' in kwargs and backend == 'cv2':
-        img = cv2.resize(img, kwargs['resize'])
+    # if 'resize' in kwargs and backend == 'PIL':
+    #     img = img.resize(kwargs['resize'])
+    # elif 'resize' in kwargs and backend == 'cv2':
+    #     img = cv2.resize(img, kwargs['resize'])
 
-    return img
+    # return img
 
 def read_pickle_file(path):
     """Reads a pickle file from a file.
