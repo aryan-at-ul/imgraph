@@ -1,13 +1,14 @@
 import os 
 import os.path as osp
-from PIL import Image
+import torch
+# from PIL import Image
 import cv2
 import numpy as np
 import pickle
 import networkx as nx
 from skimage.io import imread
 
-def read_image(path, backend='PIL', **kwargs):
+def read_image(path, name : str ,backend='PIL', **kwargs):
     """Reads an image from a file.
     Args:
         path (str): The path to a local image file.
@@ -21,11 +22,11 @@ def read_image(path, backend='PIL', **kwargs):
     else:
         height,width = image.shape
     #height, width = image.shape
-    image = image[0:height, 10:width-10]
+    # image = image[0:height, 10:width-10]
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = cv2.resize(image, (500, 500))
     # image = img_as_float(image)
-    return image
+    return image,name
     # img = None
     # if backend == 'PIL':
     
