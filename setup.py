@@ -49,16 +49,13 @@ full_requires = graphgym_requires + modelhub_requires + [
     "torchvision",
     "torchmetrics",
     "torchvision",
-    "torch-scatter",
-    "torch-sparse",
-    "torch-cluster",
-    "torch-geometric",
-    "torch-spline-conv",
-    "torch-geometric-temporal",
+    # "torch-scatter",
+    # "torch-sparse",
+    # "torch-cluster",
+    # "torch-spline-conv",
+    # "torch-geometric-temporal",
     "torch",
     "torch-geometric",
-    # "Pillow",
-
 ]
 
 benchmark_requires = [
