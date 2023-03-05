@@ -8,6 +8,8 @@ from .makedirs import makedirs
 import pickle
 import networkx as nx
 from PIL import Image
+import torch
+
 
 def download_from_url(url : str, path : str, filename : Optional[str] = None):
     """Downloads a file from a URL.
@@ -55,8 +57,17 @@ def write_graph(graph, path):
         graph (networkx graph): The graph to write.
         path (str): The path to a local graph file.
     """
-    nx.write_gpickle(graph, path)
+    print("writing graph to file", path)
+    nx.write_gpickle(graph, osp.expanduser(path))
 
+
+def write_pyg_data(data, path):
+    """Writes a PyG data object to a file.
+    Args:
+        data (PyG data object): The data object to write.
+        path (str): The path to a local PyG data file.
+    """
+    torch.save(data, osp.expanduser(path))
 
 def write_image(img, path):
     """Writes an image to a file.

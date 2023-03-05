@@ -19,10 +19,12 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def get_feture_extractor_model(model_name):
     
     # auto_transform = weights.transforms()
+    weights = torchvision.models.ResNet18_Weights.DEFAULT 
+    model = models.resnet18(weights=weights).to(device)
 
     if model_name == 'resnet18':
-
-        model = models.resnet18(pretrained=True).to(device)
+        weights = torchvision.models.ResNet18_Weights.DEFAULT 
+        model = models.resnet18(weights=weights).to(device)
         
     elif model_name == 'efficientnet_b0':
         weights = torchvision.models.EfficientNet_B0_Weights.DEFAULT

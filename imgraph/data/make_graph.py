@@ -1,4 +1,5 @@
-
+import os 
+import os.path as osp
 from skimage.segmentation import slic
 from skimage.segmentation import mark_boundaries
 from skimage import data, segmentation
@@ -22,7 +23,8 @@ from imgraph.reader import read_image
 from imgraph.writer import write_graph
 
 
-def image_transform_slic(img : np.ndarray, n_segments = 10, compactness = 10, sigma = 1, multichannel = True):
+
+def image_transform_slic(img : np.ndarray, n_segments = 10, compactness = 10, sigma = 0, multichannel = True):
     """
     Args: img: numpy array of the image
             n_segments: number of segments
@@ -31,7 +33,7 @@ def image_transform_slic(img : np.ndarray, n_segments = 10, compactness = 10, si
             multichannel: if the image is multichannel
     Returns: numpy array of the image/ segments of the image
     """
-    segments = slic(img, n_segments = n_segments, compactness = compactness, sigma = sigma, multichannel = multichannel)
+    segments = slic(img, n_segments = n_segments, compactness = compactness, sigma = sigma)
     return segments
 
 
@@ -61,7 +63,7 @@ def make_graph(img : np.ndarray, name : str, n_segments = 10, compactness = 10, 
     return G, segments
 
 
-def graph_generator(img : np.ndarray, model_name : str, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):
+def graph_generator(img : np.ndarray, model_name : str, name : str, class_name : str, class_map : dict, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):
     """
     Args: img: numpy array of the image
             segments: numpy array of the segments of the image
@@ -70,9 +72,12 @@ def graph_generator(img : np.ndarray, model_name : str, name : str, n_segments =
             type: type of the graph train/test
     Returns: networkx graph
     """
+    # print("Generating graph for image: ", name, " with model: ", model_name)
     start_time = time.time()
     G2 = nx.Graph()
     model,feature_extractor = get_feture_extractor_model(model_name)
+    if len(img.shape) < 3:
+        img = np.stack((img,)*3, axis=-1)
     seg_imgs = []
     G, segments  = make_graph(img, name, n_segments, compactness, sigma, multichannel, task, type)
     for (i, segVal) in enumerate(np.unique(segments)):
@@ -100,16 +105,20 @@ def graph_generator(img : np.ndarray, model_name : str, name : str, n_segments =
                 img_fet,i = future.result()
                 G2.add_node(i,x = img_fet)
             except Exception as exc:
-                print(f'generated an exception: {exc} for seg {i}')
+                print(f'generated an exception: {exc}')
                 print(traceback.format_exc())
    
     end_time = time.time()
-    print(f"{name} total time take per image is {end_time - start_time}")
+    # print(f"{name} total time take per image is {end_time - start_time}")
     edges = G.edges
     for e in edges:
         G2.add_weighted_edges_from([(e[0],e[1],G[e[0]][e[1]]['weight'])])
 
-    return G2,segments
+    data = None
+    if task == 'classification':
+        data = load_and_transform(G2, name, class_map[class_name])
+
+    return G2,name,data
 
 
 def graph_generator_from_path(img_path : str, model_name : str, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):   
@@ -123,7 +132,7 @@ def graph_generator_from_path(img_path : str, model_name : str, name : str, n_se
     """
     img = read_image(img_path)
     G,segments = graph_generator(img, model_name, name, n_segments, compactness, sigma, multichannel, task, type)
-    write_graph(G, name)
+    # write_graph(G, name)
     data = None
     if task == 'classification':
         data = load_and_transform(G, name, type)

@@ -23,8 +23,11 @@ def read_image(path, name : str ,backend='PIL', **kwargs):
         height,width = image.shape
     #height, width = image.shape
     # image = image[0:height, 10:width-10]
-    # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image = cv2.resize(image, (500, 500))
+    try:
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = cv2.resize(image, (500, 500))
+    except Exception as e:
+        print("Error in resizing image: ", name, " with error: ", e)
     # image = img_as_float(image)
     return image,name
     # img = None
