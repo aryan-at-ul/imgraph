@@ -5,13 +5,18 @@
 Example Usage: 
 
 ```
-from imgraph import image_to_graph,draw_graph_as_image
+from imgraph.pipeline import create_graph_pipleline
 
-#use a test image
-#model_name  -> default resnet18, possible value densenet121 and efficientnet-b0
-g,seg = image_to_graph('test.jpeg', n_segments = 10, model_name = "densenet121")
+path = "path/to/image"
 
+create_graph_pipleline(path, 'classification', 'rag', 'resnet18', 10)
 
-draw_graph_as_image(g,seg)
 ```
+
+### Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.
+
+### The graph will be saved in the PyG Data format or pickle format.
+
+
+
 

@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-__version__ = '0.0.5'
+__version__ = '0.0.7'
 
 install_requires = [
     'tqdm',
@@ -10,7 +10,7 @@ install_requires = [
     'requests',
     'pyparsing',
     'scikit-learn',
-    'psutil>=5.8.0',
+    'psutil',
 ]
 
 graphgym_requires = [

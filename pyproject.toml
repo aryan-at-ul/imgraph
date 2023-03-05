@@ -1,6 +1,6 @@
 [project]
 name="imgraph"
-version="0.0.5"
+version="0.0.7"
 readme="README.md"
 authors=[
     {name="Aryan Singh", email="aryan.singh@ul.ie"},
@@ -14,6 +14,7 @@ keywords=[
     "graph-neural-networks",
     "graph-convolutional-networks",
     "gnn-on-images",
+    "convert image to graph"
 ]
 classifiers=[
     "License :: OSI Approved :: MIT License",
