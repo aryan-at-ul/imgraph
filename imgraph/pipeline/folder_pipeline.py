@@ -68,11 +68,11 @@ def get_graph(image_dictionary,class_map,cnn_method = 'resnet18', node_count = 1
             makedirs(osp.join(output_dir, train_test_val, class_name))
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
                 futures = [executor.submit(graph_generator, img_and_name[1], cnn_method,img_and_name[0], class_name, class_map,node_count) for img_and_name in img_name_img]   
-                for future in concurrent.futures.as_completed(futures):
+                for future in tqdm(concurrent.futures.as_completed(futures)):
                     try:
                         G,name,data = future.result()
                         image_dictionary[train_test_val][class_name][name] = G
-                        print("for file: ", name, " graph generated")
+                        # print("for file: ", name, " graph generated")
                         # write_graph(G, osp.join(output_dir, train_test_val, class_name, name + '.gpickle'))
                         write_pyg_data(data, osp.join(output_dir, train_test_val, class_name, name + '.pt'))
                         # nx.write_gpickle(G, osp.join(output_dir, train_test_val, class_name, name + '.gpickle'))
@@ -87,6 +87,20 @@ def get_graph(image_dictionary,class_map,cnn_method = 'resnet18', node_count = 1
 
 def create_graph_pipleline(path : str, task : str, graph_method : str, feature_extractor, node_count = 10,  **kwargs):
     
+    """ Create a graph pipeline from a folder of images
+    Args:
+        path (str): Path to the folder containing the images
+        task (str): The task to be performed on the images. Currently only classification is supported
+        graph_method (str): The method to be used to create the graph. Currently only 'SLIC' is supported
+        feature_extractor (str): The feature extractor to be used to create the graph. Currently only 'resnet18/efficientnet/densenet121' is supported
+        node_count (int): The number of nodes in the graph
+        kwargs: Additional arguments to be passed to the graph creation method, like the number of prcoessors to be used
+    Returns:
+        A dictionary of the images with the graph segment of the image, defaut ~/.cache/imgraph/output else as specified in the environment variable IMGRAPH_HOME
+
+    """
+
+
     print("Creating graph pipeline")
     global output_dir
     global class_map

@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 install_requires = [
     'tqdm',
@@ -49,9 +49,9 @@ full_requires = graphgym_requires + modelhub_requires + [
     "torchvision",
     "torchmetrics",
     "torchvision",
-    "torch-scatter",
-    "torch-sparse",
-    "torch-cluster",
+    # "torch-scatter",
+    # "torch-sparse",
+    # "torch-cluster",
     # "torch-spline-conv",
     # "torch-geometric-temporal",
     "torch",

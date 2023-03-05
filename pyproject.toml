@@ -1,6 +1,6 @@
 [project]
 name="imgraph"
-version="0.0.7"
+version="0.0.8"
 readme="README.md"
 authors=[
     {name="Aryan Singh", email="aryan.singh@ul.ie"},
