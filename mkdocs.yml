@@ -35,4 +35,7 @@ markdown_extensions:
 
 nav:
   - "Start": index.md
-  - "API": api.md
+  - "imgraph.pipeline": pipeline.md
+  - "imgraph.data": data.md
+  - "imgraph.reader": reader.md
+  - "imgraph.writer": writer.md

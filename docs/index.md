@@ -19,16 +19,16 @@ create_graph_pipleline(path, 'classification', 'rag', 'resnet18', 10)
 ### Expected input folder structure: 
 
 ```
-    image_folder
-    ├── test
-    │   ├── class1
-    │   └── class2
-    ├── train
-    │   ├── class1
-    │   └── class2
-    └── val
-        ├── class1
-        └── class2
+image_folder
+├── test
+│   ├── class1
+│   └── class2
+├── train
+│   ├── class1
+│   └── class2
+└── val
+    ├── class1
+    └── class2
 ```
 
 
@@ -40,25 +40,25 @@ create_graph_pipleline(path, 'classification', 'rag', 'resnet18', 10)
 
     
 ```
-    import torch
+import torch
 
-    def format_pytorch_version(version):
-    return version.split('+')[0]
+def format_pytorch_version(version):
+return version.split('+')[0]
 
-    TORCH_version = torch.__version__
-    TORCH = format_pytorch_version(TORCH_version)
+TORCH_version = torch.__version__
+TORCH = format_pytorch_version(TORCH_version)
 
-    def format_cuda_version(version):
-    return 'cu' + version.replace('.', '')
+def format_cuda_version(version):
+return 'cu' + version.replace('.', '')
 
-    CUDA_version = torch.version.cuda
-    CUDA = format_cuda_version(CUDA_version)
+CUDA_version = torch.version.cuda
+CUDA = format_cuda_version(CUDA_version)
 
-    !pip install torch-scatter     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
-    !pip install torch-sparse      -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
-    !pip install torch-cluster     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
-    !pip install torch-spline-conv -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
-    !pip install torch-geometric 
+!pip install torch-scatter     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
+!pip install torch-sparse      -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
+!pip install torch-cluster     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
+!pip install torch-spline-conv -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
+!pip install torch-geometric 
 
 ```
 

@@ -12,7 +12,7 @@
       
       
       
-        <link rel="next" href="api/">
+        <link rel="next" href="pipeline/">
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
@@ -329,8 +329,53 @@
   
   
     <li class="md-nav__item">
-      <a href="api/" class="md-nav__link">
-        API
+      <a href="pipeline/" class="md-nav__link">
+        imgraph.pipeline
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data/" class="md-nav__link">
+        imgraph.data
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reader/" class="md-nav__link">
+        imgraph.reader
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="writer/" class="md-nav__link">
+        imgraph.writer
       </a>
     </li>
   
@@ -433,37 +478,40 @@ create_graph_pipleline(path, &#39;classification&#39;, &#39;rag&#39;, &#39;resne
 </code></pre></div>
 <h3 id="above-code-will-create-a-graph-from-the-image-and-save-it-in-the-directory-cacheimgraph-or-directory-specified-by-the-user-in-enviornment-variable-imgraph_home">Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.</h3>
 <h3 id="expected-input-folder-structure">Expected input folder structure:</h3>
-<div class="highlight"><pre><span></span><code>    image_folder
-    ├── test
-    │   ├── class1
-    │   └── class2
-    ├── train
-    │   ├── class1
-    │   └── class2
-    └── val
-        ├── class1
-        └── class2
+<div class="highlight"><pre><span></span><code>image_folder
+├── test
+│   ├── class1
+│   └── class2
+├── train
+│   ├── class1
+│   └── class2
+└── val
+    ├── class1
+    └── class2
 </code></pre></div>
 <h3 id="the-graph-will-be-saved-in-the-pyg-data-format-or-pickle-format">The graph will be saved in the PyG Data format or pickle format.</h3>
 <h3 id="to-install-pytorch-geometric-dependencies-please-follow-the-instructions-here-pyg-installation-or-use-the-following-code-snippet">To install pytorch geometric dependencies, please follow the instructions here: <a href="https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html">PyG installation</a> or use the following code snippet:</h3>
 <h3 id="to-install-full-dependeciens-install-using-setuppy-with-full-dependencies-flag-its-slow-but-will-install-all-dependencies">To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)</h3>
-<p><div class="highlight"><pre><span></span><code>
-</code></pre></div>
-import torch</p>
-<p>def format_pytorch_version(version):
-return version.split('+')[0]</p>
-<p>TORCH_version = torch.<strong>version</strong>
-TORCH = format_pytorch_version(TORCH_version)</p>
-<p>def format_cuda_version(version):
-return 'cu' + version.replace('.', '')</p>
-<p>CUDA_version = torch.version.cuda
-CUDA = format_cuda_version(CUDA_version)</p>
-<p>!pip install torch-scatter     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
+<div class="highlight"><pre><span></span><code>import torch
+
+def format_pytorch_version(version):
+return version.split(&#39;+&#39;)[0]
+
+TORCH_version = torch.__version__
+TORCH = format_pytorch_version(TORCH_version)
+
+def format_cuda_version(version):
+return &#39;cu&#39; + version.replace(&#39;.&#39;, &#39;&#39;)
+
+CUDA_version = torch.version.cuda
+CUDA = format_cuda_version(CUDA_version)
+
+!pip install torch-scatter     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
 !pip install torch-sparse      -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
 !pip install torch-cluster     -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
 !pip install torch-spline-conv -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
-!pip install torch-geometric </p>
-<p>```</p>
+!pip install torch-geometric 
+</code></pre></div>
 
 
 
