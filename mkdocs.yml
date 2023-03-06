@@ -34,7 +34,7 @@ markdown_extensions:
   - pymdownx.superfences
 
 nav:
-  - "Start": index.md
+  - "imgraph": index.md
   - "imgraph.pipeline": pipeline.md
   - "imgraph.data": data.md
   - "imgraph.reader": reader.md
