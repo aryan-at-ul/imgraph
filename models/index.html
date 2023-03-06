@@ -11,17 +11,17 @@
       
       
       
-        <link rel="prev" href="../writer/">
+        <link rel="prev" href="../datasets/">
       
       
-        <link rel="next" href="../models/">
+        <link rel="next" href="../utils/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
-        <title>imgraph.datasets - ImGraph</title>
+        <title>imgraph.models - ImGraph</title>
       
     
     
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              imgraph.datasets
+              imgraph.models
             
           </span>
         </div>
@@ -313,6 +313,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../datasets/" class="md-nav__link">
+        imgraph.datasets
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -325,12 +340,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          imgraph.datasets
+          imgraph.models
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        imgraph.datasets
+        imgraph.models
       </a>
       
         
@@ -349,29 +364,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#available-benchmark-datasets" class="md-nav__link">
-    Available benchmark datasets
+  <a href="#available-models" class="md-nav__link">
+    Available models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#imgraph.datasets" class="md-nav__link">
-    imgraph.datasets
+  <a href="#imgraph.models" class="md-nav__link">
+    imgraph.models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#imgraph.datasets.get_minst_dataset" class="md-nav__link">
-    get_minst_dataset()
+  <a href="#imgraph.models.gat_model" class="md-nav__link">
+    gat_model()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#imgraph.datasets.get_pneumonia_dataset" class="md-nav__link">
-    get_pneumonia_dataset()
+  <a href="#imgraph.models.gcn_model" class="md-nav__link">
+    gcn_model()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imgraph.models.gin_model" class="md-nav__link">
+    gin_model()
   </a>
   
 </li>
@@ -380,21 +402,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../models/" class="md-nav__link">
-        imgraph.models
-      </a>
     </li>
   
 
@@ -441,29 +448,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#available-benchmark-datasets" class="md-nav__link">
-    Available benchmark datasets
+  <a href="#available-models" class="md-nav__link">
+    Available models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#imgraph.datasets" class="md-nav__link">
-    imgraph.datasets
+  <a href="#imgraph.models" class="md-nav__link">
+    imgraph.models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#imgraph.datasets.get_minst_dataset" class="md-nav__link">
-    get_minst_dataset()
+  <a href="#imgraph.models.gat_model" class="md-nav__link">
+    gat_model()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#imgraph.datasets.get_pneumonia_dataset" class="md-nav__link">
-    get_pneumonia_dataset()
+  <a href="#imgraph.models.gcn_model" class="md-nav__link">
+    gcn_model()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imgraph.models.gin_model" class="md-nav__link">
+    gin_model()
   </a>
   
 </li>
@@ -487,13 +501,13 @@
 
 
 <h1 id="reference">Reference</h1>
-<h2 id="available-benchmark-datasets">Available benchmark datasets</h2>
+<h2 id="available-models">Available models</h2>
 
 
 <div class="doc doc-object doc-module">
 
 
-<a id="imgraph.datasets"></a>
+<a id="imgraph.models"></a>
   <div class="doc doc-contents first">
 
   
@@ -512,121 +526,14 @@
 
 
 
-<h2 id="imgraph.datasets.get_minst_dataset" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_minst_dataset</span><span class="p">()</span></code>
+<h2 id="imgraph.models.gat_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">gat_model</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span></code>
 
 </h2>
 
 
   <div class="doc doc-contents ">
   
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code>list</code>
-          </td>
-          <td><p>MNIST dataset</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>imgraph/datasets/mnist_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_minst_dataset</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Args:</span>
-<span class="sd">        None</span>
-<span class="sd">    Returns:</span>
-<span class="sd">        MNIST dataset</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Getting minst dataset&quot;</span><span class="p">)</span>
-    <span class="n">train_loader_url</span> <span class="o">=</span> <span class="s2">&quot;https://drive.google.com/uc?export=download&amp;confirm=yes&amp;id=1lORmY8srDFTm6a8yqzUOLrrvPOkoUZQ0&quot;</span>
-    <span class="n">test_loader_url</span> <span class="o">=</span> <span class="s2">&quot;https://drive.google.com/uc?export=download&amp;confirm=yes&amp;id=1fwkebInpfzHHv9M60zvH3YRPbEVBg53L&quot;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ENV_IMGRAPH_HOME</span><span class="p">):</span>
-        <span class="n">path</span>  <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ENV_IMGRAPH_HOME</span><span class="p">),</span> <span class="s1">&#39;output&#39;</span><span class="p">)</span>
-    <span class="n">train_filename</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;mnist_trainloader.pkl&#39;</span><span class="p">))</span>
-    <span class="n">test_filename</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;mnist_testloader.pkl&#39;</span><span class="p">))</span>
-
-    <span class="n">path</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-    <span class="c1"># os.system(f&quot;curl -o {train_filename} -L &#39;{train_loader_url}&#39;&quot;)</span>
-    <span class="c1"># os.system(f&quot;curl -o {test_filename} -L &#39;{test_loader_url}&#39;&quot;)</span>
-    <span class="c1">#url : str, path : str, filename : Optional[str] = None</span>
-    <span class="n">download_from_url</span><span class="p">(</span><span class="n">train_loader_url</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="s1">&#39;mnist_trainloader.pkl&#39;</span><span class="p">)</span>
-    <span class="n">download_from_url</span><span class="p">(</span><span class="n">test_loader_url</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="s1">&#39;mnist_testloader.pkl&#39;</span><span class="p">)</span>
-    <span class="c1">#filepath = osp.join(path, filename)</span>
-    <span class="n">train_loader</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">test_loader</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading minst dataset&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">train_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">train_loader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">test_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">test_loader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">train_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span><span class="n">test_loader</span><span class="o">.</span><span class="n">dataset</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h2 id="imgraph.datasets.get_pneumonia_dataset" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_pneumonia_dataset</span><span class="p">(</span><span class="n">super_pixels</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">)</span></code>
-
-</h2>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Download the pneumonia datasets</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -640,23 +547,33 @@
     </thead>
     <tbody>
         <tr>
-          <td><code>super_pixels</code></td>
+          <td><code>hidden_channels</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>The number of super pixels to be used in the graph</p></td>
+          <td><p>The number of hidden channels.</p></td>
           <td>
               <em>required</em>
           </td>
         </tr>
         <tr>
-          <td><code>feature_extractor</code></td>
+          <td><code>n_layers</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of GAT layers.</p></td>
+          <td>
+                <code>4</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>task</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The feature extractor to be used to create the graph. Currently only 'resnet18/efficientnet/densenet121' is supported</p></td>
+          <td><p>The task to be solved. (default: :obj:<code>"classification"</code>)</p></td>
           <td>
-              <em>required</em>
+                <code>&#39;classification&#39;</code>
           </td>
         </tr>
     </tbody>
@@ -673,46 +590,15 @@
     <tbody>
         <tr>
           <td>
-                <code>list</code>
           </td>
-          <td><p>Pneumonia dataset</p></td>
+          <td><p>The GAT model.</p></td>
         </tr>
     </tbody>
   </table>
 
       <details class="quote">
-        <summary>Source code in <code>imgraph/datasets/pneumonia_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
+        <summary>Source code in <code>imgraph/models/gat.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
@@ -722,47 +608,261 @@
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_pneumonia_dataset</span><span class="p">(</span><span class="n">super_pixels</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">feature_extractor</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">gat_model</span><span class="p">(</span><span class="n">hidden_channels</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_layers</span>  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">task</span> <span class="o">=</span> <span class="s1">&#39;classification&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Download the pneumonia datasets</span>
 <span class="sd">    Args:</span>
-<span class="sd">        super_pixels (int): The number of super pixels to be used in the graph</span>
-<span class="sd">        feature_extractor (str): The feature extractor to be used to create the graph. Currently only &#39;resnet18/efficientnet/densenet121&#39; is supported</span>
-
+<span class="sd">        hidden_channels (int): The number of hidden channels.</span>
+<span class="sd">        n_layers (int, optional): The number of GAT layers.</span>
+<span class="sd">        task (str, optional): The task to be solved. (default: :obj:`&quot;classification&quot;`)</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        Pneumonia dataset</span>
+<span class="sd">        The GAT model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">task</span> <span class="o">==</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">GAT</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only classification task is supported&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="imgraph.models.gcn_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">gcn_model</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>input_channels</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of input channels.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>hidden_channels</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of hidden channels.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_layers</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of GCN layers.</p></td>
+          <td>
+                <code>4</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>task</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The task to be solved. (default: :obj:<code>"classification"</code>)</p></td>
+          <td>
+                <code>&#39;classification&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The GCN model.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>imgraph/models/gcn.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">gcn_model</span><span class="p">(</span><span class="n">input_channels</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span><span class="n">hidden_channels</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_layers</span>  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">task</span> <span class="o">=</span> <span class="s1">&#39;classification&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_channels (int): The number of input channels.</span>
+<span class="sd">        hidden_channels (int): The number of hidden channels.</span>
+<span class="sd">        n_layers (int, optional): The number of GCN layers.</span>
+<span class="sd">        task (str, optional): The task to be solved. (default: :obj:`&quot;classification&quot;`)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The GCN model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="k">if</span> <span class="n">task</span> <span class="o">==</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">GCN</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only classification task is supported&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
 
-    <span class="n">train_loader_url</span> <span class="o">=</span> <span class="n">pneumonia_dataset_url</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;train_dataloader_</span><span class="si">{</span><span class="n">super_pixels</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">feature_extractor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-    <span class="n">test_loader_url</span> <span class="o">=</span> <span class="n">pneumonia_dataset_url</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;test_dataloader_</span><span class="si">{</span><span class="n">super_pixels</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">feature_extractor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+</div>
 
-
-    <span class="n">path</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CACHE_DIR</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ENV_IMGRAPH_HOME</span><span class="p">):</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ENV_IMGRAPH_HOME</span><span class="p">),</span> <span class="s1">&#39;output&#39;</span><span class="p">)</span>
-
-    <span class="n">path</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-    <span class="n">train_filename</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;train_dataloader_</span><span class="si">{</span><span class="n">super_pixels</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">feature_extractor</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">))</span>
-    <span class="n">test_filename</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;test_dataloader_</span><span class="si">{</span><span class="n">super_pixels</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">feature_extractor</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">))</span>
+<div class="doc doc-object doc-function">
 
 
-    <span class="n">download_from_url</span><span class="p">(</span><span class="n">train_loader_url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;train_dataloader_</span><span class="si">{</span><span class="n">super_pixels</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">feature_extractor</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">)</span>
-    <span class="n">download_from_url</span><span class="p">(</span><span class="n">test_loader_url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;test_dataloader_</span><span class="si">{</span><span class="n">super_pixels</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">feature_extractor</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">)</span>
-    <span class="c1">#filepath = osp.join(path, filename)</span>
 
-    <span class="n">train_loader</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">test_loader</span> <span class="o">=</span> <span class="kc">None</span>
+<h2 id="imgraph.models.gin_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">gin_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">dim_h</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span></code>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading Pneumonia dataset&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">train_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">train_loader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</h2>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">test_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">test_loader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">train_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span><span class="n">test_loader</span><span class="o">.</span><span class="n">dataset</span>
+  <div class="doc doc-contents ">
+  
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>input_dim</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of input channels.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dim_h</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of hidden channels.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_layers</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of GIN layers.</p></td>
+          <td>
+                <code>4</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>task</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The task to be solved. (default: :obj:<code>"classification"</code>)</p></td>
+          <td>
+                <code>&#39;classification&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The GIN model.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>imgraph/models/gin.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">gin_model</span><span class="p">(</span><span class="n">input_dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim_h</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_layers</span>  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">task</span> <span class="o">=</span> <span class="s1">&#39;classification&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_dim (int): The number of input channels.</span>
+<span class="sd">        dim_h (int): The number of hidden channels.</span>
+<span class="sd">        n_layers (int, optional): The number of GIN layers.</span>
+<span class="sd">        task (str, optional): The task to be solved. (default: :obj:`&quot;classification&quot;`)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The GIN model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">task</span> <span class="o">==</span> <span class="s1">&#39;classification&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">GIN</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">dim_h</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only classification task is supported&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
