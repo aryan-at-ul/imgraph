@@ -7,7 +7,7 @@ from imgraph.datasets import get_minst_dataset, get_pneumonia_dataset
 
 
 
-def load_saved_datasets(dataset_name: str, super_pixels : Optional[str] = 10, feature_extractor : Optional[str] = 'resnet18' ,root: Optional[str] = None) -> None:
+def load_saved_datasets(dataset_name: str, super_pixels : Optional[int] = 10, feature_extractor : Optional[str] = 'resnet18' ,root: Optional[str] = None) -> None:
     r"""Loads the dataset from the local cache.
 
     Args:
