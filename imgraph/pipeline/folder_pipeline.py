@@ -134,14 +134,7 @@ def create_graph_pipleline(path : str, task : str, graph_method : str, feature_e
                 file_path_dictionary[train_test_val][class_name] = class_files
         img_and_name = read_images_in_parallel(file_path_dictionary)
         graph_and_name = get_graph(img_and_name, class_map,feature_extractor, node_count)
-                    
-    #     return ClassificationPipeline(path, graph_method, feature_extractor, **kwargs)
-    # elif task == 'segmentation':
-    #     from imgraph.pipeline.segmentation_pipeline import SegmentationPipeline
-    #     return SegmentationPipeline(path, graph_method, feature_extractor, **kwargs)
-    # elif task == 'detection':
-    #     from imgraph.pipeline.detection_pipeline import DetectionPipeline
-    #     return DetectionPipeline(path, graph_method, feature_extractor, **kwargs)
+        return graph_and_name
     else:
         raise ValueError(f'Invalid task: {task}')
 

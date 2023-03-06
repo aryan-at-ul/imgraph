@@ -26,10 +26,11 @@ def get_minst_dataset():
     test_loader_url = "https://drive.google.com/uc?export=download&confirm=yes&id=1fwkebInpfzHHv9M60zvH3YRPbEVBg53L"
     path = osp.join(DEFAULT_CACHE_DIR, 'output')
     if os.environ.get(ENV_IMGRAPH_HOME):
-        output_dir = osp.join(os.environ.get(ENV_IMGRAPH_HOME), 'output')
+        path  = osp.join(os.environ.get(ENV_IMGRAPH_HOME), 'output')
     train_filename = osp.expanduser(osp.join(path, 'mnist_trainloader.pkl'))
     test_filename = osp.expanduser(osp.join(path, 'mnist_testloader.pkl'))
 
+    path = osp.expanduser(path)
 
     # os.system(f"curl -o {train_filename} -L '{train_loader_url}'")
     # os.system(f"curl -o {test_filename} -L '{test_loader_url}'")
