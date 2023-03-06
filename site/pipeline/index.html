@@ -241,7 +241,7 @@
   
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
-        Start
+        imgraph
       </a>
     </li>
   
@@ -309,6 +309,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#imgraph.pipeline.load_saved_datasets" class="md-nav__link">
+    load_saved_datasets()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -362,6 +369,21 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasets/" class="md-nav__link">
+        imgraph.datasets
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -405,6 +427,13 @@
         <li class="md-nav__item">
   <a href="#imgraph.pipeline.create_graph_pipleline" class="md-nav__link">
     create_graph_pipleline()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imgraph.pipeline.load_saved_datasets" class="md-nav__link">
+    load_saved_datasets()
   </a>
   
 </li>
@@ -606,14 +635,7 @@
 <span class="normal">136</span>
 <span class="normal">137</span>
 <span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_graph_pipleline</span><span class="p">(</span><span class="n">path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">task</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">graph_method</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">,</span> <span class="n">node_count</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_graph_pipleline</span><span class="p">(</span><span class="n">path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">task</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">graph_method</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="p">,</span> <span class="n">node_count</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Create a graph pipeline from a folder of images</span>
 <span class="sd">    Args:</span>
@@ -662,16 +684,119 @@
                 <span class="n">file_path_dictionary</span><span class="p">[</span><span class="n">train_test_val</span><span class="p">][</span><span class="n">class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">class_files</span>
         <span class="n">img_and_name</span> <span class="o">=</span> <span class="n">read_images_in_parallel</span><span class="p">(</span><span class="n">file_path_dictionary</span><span class="p">)</span>
         <span class="n">graph_and_name</span> <span class="o">=</span> <span class="n">get_graph</span><span class="p">(</span><span class="n">img_and_name</span><span class="p">,</span> <span class="n">class_map</span><span class="p">,</span><span class="n">feature_extractor</span><span class="p">,</span> <span class="n">node_count</span><span class="p">)</span>
-
-    <span class="c1">#     return ClassificationPipeline(path, graph_method, feature_extractor, **kwargs)</span>
-    <span class="c1"># elif task == &#39;segmentation&#39;:</span>
-    <span class="c1">#     from imgraph.pipeline.segmentation_pipeline import SegmentationPipeline</span>
-    <span class="c1">#     return SegmentationPipeline(path, graph_method, feature_extractor, **kwargs)</span>
-    <span class="c1"># elif task == &#39;detection&#39;:</span>
-    <span class="c1">#     from imgraph.pipeline.detection_pipeline import DetectionPipeline</span>
-    <span class="c1">#     return DetectionPipeline(path, graph_method, feature_extractor, **kwargs)</span>
+        <span class="k">return</span> <span class="n">graph_and_name</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid task: </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="imgraph.pipeline.load_saved_datasets" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">load_saved_datasets</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">super_pixels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">feature_extractor</span><span class="o">=</span><span class="s1">&#39;resnet18&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Loads the dataset from the local cache.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>dataset_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the dataset.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>root</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The root directory where the dataset should be saved.
+(default: :obj:<code>None</code>)</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>None</code>
+          </td>
+          <td><p>The dataset object.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>imgraph/pipeline/from_dataset.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_saved_datasets</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">super_pixels</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">feature_extractor</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;resnet18&#39;</span> <span class="p">,</span><span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Loads the dataset from the local cache.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset_name (str): The name of the dataset.</span>
+<span class="sd">        root (str, optional): The root directory where the dataset should be saved.</span>
+<span class="sd">            (default: :obj:`None`)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The dataset object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">dataset_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;mnist&#39;</span><span class="p">:</span>
+        <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">get_minst_dataset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span>
+
+    <span class="k">if</span> <span class="n">dataset_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pneumonia&#39;</span><span class="p">:</span>
+        <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">get_pneumonia_dataset</span><span class="p">(</span><span class="n">super_pixels</span><span class="p">,</span><span class="n">feature_extractor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>

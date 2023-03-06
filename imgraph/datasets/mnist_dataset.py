@@ -12,14 +12,14 @@ from torch_geometric.data import InMemoryDataset, Data, DataLoader
 ENV_IMGRAPH_HOME = 'IMGRAPH_HOME'
 DEFAULT_CACHE_DIR = osp.join('~', '.cache', 'imgraph')
 
-#https://drive.google.com/file/d/1lORmY8srDFTm6a8yqzUOLrrvPOkoUZQ0/view?usp=sharing
-#https://drive.google.com/file/d/1fwkebInpfzHHv9M60zvH3YRPbEVBg53L/view?usp=sharing
-def get_minst_dataset():
+
+
+def get_minst_dataset() -> list:
     """
     Args:
         None
     Returns:
-        A train_dataset and a test_dataset
+        MNIST dataset
     """
     print("Getting minst dataset")
     train_loader_url = "https://drive.google.com/uc?export=download&confirm=yes&id=1lORmY8srDFTm6a8yqzUOLrrvPOkoUZQ0"

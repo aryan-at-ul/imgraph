@@ -39,3 +39,4 @@ nav:
   - "imgraph.data": data.md
   - "imgraph.reader": reader.md
   - "imgraph.writer": writer.md
+  - "imgraph.datasets" : datasets.md
