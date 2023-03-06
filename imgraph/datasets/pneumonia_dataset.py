@@ -24,7 +24,6 @@ def get_pneumonia_dataset(super_pixels : int, feature_extractor : str) -> list:
     train_loader_url = pneumonia_dataset_url[f"train_dataloader_{super_pixels}_{feature_extractor}"]
     test_loader_url = pneumonia_dataset_url[f"test_dataloader_{super_pixels}_{feature_extractor}"]
 
-    print(train_loader_url)
 
     path = osp.join(DEFAULT_CACHE_DIR, 'output')
     if os.environ.get(ENV_IMGRAPH_HOME):
@@ -34,9 +33,6 @@ def get_pneumonia_dataset(super_pixels : int, feature_extractor : str) -> list:
 
     train_filename = osp.expanduser(osp.join(path, f'train_dataloader_{super_pixels}_{feature_extractor}.pkl'))
     test_filename = osp.expanduser(osp.join(path, f'test_dataloader_{super_pixels}_{feature_extractor}.pkl'))
-
-    print(train_filename)
-    print(test_filename)
 
 
     download_from_url(train_loader_url, path, f'train_dataloader_{super_pixels}_{feature_extractor}.pkl')
