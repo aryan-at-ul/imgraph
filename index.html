@@ -279,36 +279,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#above-code-will-create-a-graph-from-the-image-and-save-it-in-the-directory-cacheimgraph-or-directory-specified-by-the-user-in-enviornment-variable-imgraph_home" class="md-nav__link">
-    Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#expected-input-folder-structure" class="md-nav__link">
     Expected input folder structure:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-graph-will-be-saved-in-the-pyg-data-format-or-pickle-format" class="md-nav__link">
-    The graph will be saved in the PyG Data format or pickle format.
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#to-install-pytorch-geometric-dependencies-please-follow-the-instructions-here-pyg-installation-or-use-the-following-code-snippet" class="md-nav__link">
-    To install pytorch geometric dependencies, please follow the instructions here: PyG installation or use the following code snippet:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#to-install-full-dependeciens-install-using-setuppy-with-full-dependencies-flag-its-slow-but-will-install-all-dependencies" class="md-nav__link">
-    To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)
   </a>
   
 </li>
@@ -467,36 +439,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#above-code-will-create-a-graph-from-the-image-and-save-it-in-the-directory-cacheimgraph-or-directory-specified-by-the-user-in-enviornment-variable-imgraph_home" class="md-nav__link">
-    Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#expected-input-folder-structure" class="md-nav__link">
     Expected input folder structure:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-graph-will-be-saved-in-the-pyg-data-format-or-pickle-format" class="md-nav__link">
-    The graph will be saved in the PyG Data format or pickle format.
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#to-install-pytorch-geometric-dependencies-please-follow-the-instructions-here-pyg-installation-or-use-the-following-code-snippet" class="md-nav__link">
-    To install pytorch geometric dependencies, please follow the instructions here: PyG installation or use the following code snippet:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#to-install-full-dependeciens-install-using-setuppy-with-full-dependencies-flag-its-slow-but-will-install-all-dependencies" class="md-nav__link">
-    To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)
   </a>
   
 </li>
@@ -535,7 +479,7 @@ path = &quot;path/to/image&quot;
 
 create_graph_pipleline(path, &#39;classification&#39;, &#39;rag&#39;, &#39;resnet18&#39;, 10)
 </code></pre></div>
-<h3 id="above-code-will-create-a-graph-from-the-image-and-save-it-in-the-directory-cacheimgraph-or-directory-specified-by-the-user-in-enviornment-variable-imgraph_home">Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.</h3>
+<p>Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.</p>
 <h3 id="expected-input-folder-structure">Expected input folder structure:</h3>
 <div class="highlight"><pre><span></span><code>image_folder
 ├── test
@@ -548,9 +492,8 @@ create_graph_pipleline(path, &#39;classification&#39;, &#39;rag&#39;, &#39;resne
     ├── class1
     └── class2
 </code></pre></div>
-<h3 id="the-graph-will-be-saved-in-the-pyg-data-format-or-pickle-format">The graph will be saved in the PyG Data format or pickle format.</h3>
-<h3 id="to-install-pytorch-geometric-dependencies-please-follow-the-instructions-here-pyg-installation-or-use-the-following-code-snippet">To install pytorch geometric dependencies, please follow the instructions here: <a href="https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html">PyG installation</a> or use the following code snippet:</h3>
-<h3 id="to-install-full-dependeciens-install-using-setuppy-with-full-dependencies-flag-its-slow-but-will-install-all-dependencies">To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)</h3>
+<p>The graph will be saved in the PyG Data format or pickle format.</p>
+<p>To install pytorch geometric dependencies, please follow the instructions here: <a href="https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html">PyG installation</a> or use the following code snippet:</p>
 <div class="highlight"><pre><span></span><code>import torch
 
 def format_pytorch_version(version):
@@ -571,6 +514,7 @@ CUDA = format_cuda_version(CUDA_version)
 !pip install torch-spline-conv -f https://pytorch-geometric.com/whl/torch-{TORCH}+{CUDA}.html
 !pip install torch-geometric 
 </code></pre></div>
+<p>To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)</p>
 <h3 id="cite-our-work">Cite our work:</h3>
 <div class="highlight"><pre><span></span><code>@Manual{,
   title = {ImGraph: Image to Graph Conversion Library},
