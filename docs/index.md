@@ -13,7 +13,7 @@ create_graph_pipleline(path, 'classification', 'rag', 'resnet18', 10)
 
 ```
 
-### Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.
+ Above code will create a graph from the image and save it in the directory .~/cache/imgraph or directory specified by the user in enviornment variable IMGRAPH_HOME.
 
 
 ### Expected input folder structure: 
@@ -32,11 +32,9 @@ image_folder
 ```
 
 
-### The graph will be saved in the PyG Data format or pickle format.
+ The graph will be saved in the PyG Data format or pickle format.
 
-### To install pytorch geometric dependencies, please follow the instructions here: [PyG installation](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html) or use the following code snippet:
-
-### To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)
+ To install pytorch geometric dependencies, please follow the instructions here: [PyG installation](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html) or use the following code snippet:
 
     
 ```
@@ -62,6 +60,19 @@ CUDA = format_cuda_version(CUDA_version)
 
 ```
 
+ To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)
 
 
+### Cite our work: 
+
+```
+@Manual{,
+  title = {ImGraph: Image to Graph Conversion Library},
+  author = {{D2ice Team}},
+  organization = {University of Limerick},
+  address = {Limerick, Ireland},
+  year = {2023},
+  url = {https://aryan-at-ul.github.io/imgraph/},
+}
+```
 
