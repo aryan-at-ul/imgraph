@@ -36,7 +36,6 @@ Example Usage:
 
 ### To install pytorch geometric dependencies, please follow the instructions here: [PyG installation](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html) or use the following code snippet:
 
-### To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)
     
 ```
     import torch
@@ -60,7 +59,7 @@ Example Usage:
     !pip install torch-geometric 
 
 ```
-
+### To install full dependeciens install using setup.py with full-dependencies flag (its slow, but will install all dependencies)
 
 
 
