@@ -1,0 +1,26 @@
+{
+    "node_creation": {
+        "method": "felzenszwalb_superpixel_nodes",
+        "params": {
+            "scale": 100,
+            "sigma": 0.5
+        }
+    },
+    "node_features": {
+        "method": "mean_std_color_features",
+        "params": {}
+    },
+    "edge_creation": {
+        "method": "knn_edges",
+        "params": {
+            "k": 6,
+            "feature_weight": 0.7
+        }
+    },
+    "edge_features": {
+        "method": "feature_similarity",
+        "params": {
+            "metric": "cosine"
+        }
+    }
+}
