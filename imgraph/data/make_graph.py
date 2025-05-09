@@ -1,139 +1,238 @@
-import os 
-import os.path as osp
-from skimage.segmentation import slic
-from skimage.segmentation import mark_boundaries
-from skimage import data, segmentation
-from skimage import io, color
-from skimage.io import imread
-from skimage.util import img_as_float
-from skimage.future import graph
-from skimage.measure import regionprops
+"""
+Main module for constructing a graph from an image.
+"""
+
 import numpy as np
-import networkx as nx
-import time
-import cv2
-from .feature_extractor import get_feture_extractor_model,feature_from_img
-from .transform_graph import load_and_transform
-import  errno
-from concurrent.futures import ThreadPoolExecutor
-import concurrent.futures
-import time
-import traceback
-from imgraph.reader import read_image
-from imgraph.writer import write_graph
+import torch
+from torch_geometric.data import Data
 
-
-
-def image_transform_slic(img : np.ndarray, n_segments = 10, compactness = 10, sigma = 0, multichannel = True):
+class GraphBuilder:
     """
-    Args: img: numpy array of the image
-            n_segments: number of segments
-            compactness: compactness of the segments
-            sigma: sigma for the filter
-            multichannel: if the image is multichannel
-    Returns: numpy array of the image/ segments of the image
+    A class for constructing a graph from an image.
+    
+    Parameters
+    ----------
+    node_creation_method : callable
+        Method for creating nodes from an image
+    node_feature_method : callable
+        Method for extracting node features
+    edge_creation_method : callable
+        Method for creating edges between nodes
+    edge_feature_method : callable, optional
+        Method for extracting edge features, by default None
     """
-    segments = slic(img, n_segments = n_segments, compactness = compactness, sigma = sigma)
-    return segments
+    
+    def __init__(self, node_creation_method, node_feature_method, edge_creation_method, edge_feature_method=None):
+        """Initialize the GraphBuilder."""
+        self.node_creation_method = node_creation_method
+        self.node_feature_method = node_feature_method
+        self.edge_creation_method = edge_creation_method
+        self.edge_feature_method = edge_feature_method
+    
+    def build_graph(self, image):
+        """
+        Builds a graph from an image.
+        
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image with shape (H, W, C)
+            
+        Returns
+        -------
+        torch_geometric.data.Data
+            Graph representation of the image
+        """
+        # Create nodes
+        node_info = self.node_creation_method(image)
+        
+        # Extract node features
+        node_features = self.node_feature_method(image, node_info)
+        
+        # Create edges
+        edge_index = self.edge_creation_method(node_info, image)
+        
+        # Extract edge features (if method provided)
+        if self.edge_feature_method is not None:
+            edge_attr = self.edge_feature_method(image, node_info, edge_index)
+        else:
+            edge_attr = None
+        
+        # Create graph data object
+        graph_data = Data(
+            x=node_features,
+            edge_index=edge_index,
+            edge_attr=edge_attr,
+            # Add additional metadata
+            num_nodes=len(node_features),
+            image_size=torch.tensor(image.shape[:2])
+        )
+        
+        # Store node info for visualization or further processing
+        graph_data.node_info = node_info
+        
+        return graph_data
+    
+    def __call__(self, image):
+        """
+        Alias for build_graph method.
+        
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image with shape (H, W, C)
+            
+        Returns
+        -------
+        torch_geometric.data.Data
+            Graph representation of the image
+        """
+        return self.build_graph(image)
+    
+    def visualize_graph(self, image, graph=None):
+        """
+        Visualizes the graph on top of the image.
+        
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image with shape (H, W, C)
+        graph : torch_geometric.data.Data, optional
+            Graph to visualize, by default None (build a new graph)
+            
+        Returns
+        -------
+        matplotlib.figure.Figure
+            Figure with the visualization
+        """
+        import matplotlib.pyplot as plt
+        
+        # Build graph if not provided
+        if graph is None:
+            graph = self.build_graph(image)
+        
+        # Get node positions
+        if hasattr(graph, 'node_info') and 'centroids' in graph.node_info:
+            node_positions = graph.node_info['centroids']
+        else:
+            raise ValueError("Graph does not contain node positions")
+        
+        # Get edge indices
+        edge_index = graph.edge_index.cpu().numpy()
+        
+        # Create figure
+        fig, ax = plt.subplots(figsize=(12, 8))
+        
+        # Display image
+        ax.imshow(image)
+        
+        # Plot nodes
+        ax.scatter(node_positions[:, 1], node_positions[:, 0], c='red', s=10, alpha=0.7)
+        
+        # Plot edges
+        for i in range(edge_index.shape[1]):
+            src_idx = edge_index[0, i]
+            dst_idx = edge_index[1, i]
+            
+            src_pos = node_positions[src_idx]
+            dst_pos = node_positions[dst_idx]
+            
+            ax.plot([src_pos[1], dst_pos[1]], [src_pos[0], dst_pos[0]], 'b-', alpha=0.3, linewidth=0.5)
+        
+        # Set title
+        ax.set_title(f"Graph Visualization: {len(node_positions)} nodes, {edge_index.shape[1]} edges")
+        
+        # Turn off axis
+        ax.axis('off')
+        
+        return fig
 
-
-def make_edges(img : np.ndarray, segments : np.ndarray, task = 'classification', type = True):
+class MultiGraphBuilder:
     """
-    Args: img: numpy array of the image
-            segments: numpy array of the segments of the image
-            name: name of the graph
-            task: classification or regression
-            type: type of the graph train/test
-    Returns: RAG recency graph
+    A class for constructing multiple graphs from an image using different methods.
+    
+    Parameters
+    ----------
+    builders : list of GraphBuilder
+        List of graph builders to use
     """
-    rag = graph.rag_mean_color(img, segments,mode='distance')
-    return rag
+    
+    def __init__(self, builders):
+        """Initialize the MultiGraphBuilder."""
+        self.builders = builders
+    
+    def build_graphs(self, image):
+        """
+        Builds multiple graphs from an image.
+        
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image with shape (H, W, C)
+            
+        Returns
+        -------
+        list of torch_geometric.data.Data
+            List of graph representations of the image
+        """
+        return [builder.build_graph(image) for builder in self.builders]
+    
+    def __call__(self, image):
+        """
+        Alias for build_graphs method.
+        
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image with shape (H, W, C)
+            
+        Returns
+        -------
+        list of torch_geometric.data.Data
+            List of graph representations of the image
+        """
+        return self.build_graphs(image)
 
-def make_graph(img : np.ndarray, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):
+def combine_features(feature_methods, image, node_info):
     """
-    Args: img: numpy array of the image
-            segments: numpy array of the segments of the image
-            name: name of the graph
-            task: classification or regression
-            type: type of the graph train/test
-    Returns: networkx graph
+    Combines multiple node feature extraction methods.
+    
+    Parameters
+    ----------
+    feature_methods : list of callable
+        List of feature extraction methods
+    image : numpy.ndarray
+        Input image with shape (H, W, C)
+    node_info : dict
+        Node information dictionary from node creation
+        
+    Returns
+    -------
+    torch.Tensor
+        Combined node features
     """
-    segments = image_transform_slic(img, n_segments, compactness, sigma, multichannel)
-    G = make_edges(img, segments, task, type)
-    return G, segments
+    features = [method(image, node_info) for method in feature_methods]
+    return torch.cat(features, dim=1)
 
-
-def graph_generator(img : np.ndarray, model_name : str, name : str, class_name : str, class_map : dict, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):
+def combine_edge_features(feature_methods, image, node_info, edge_index):
     """
-    Args: img: numpy array of the image
-            segments: numpy array of the segments of the image
-            name: name of the graph
-            task: classification or regression
-            type: type of the graph train/test
-    Returns: networkx graph
+    Combines multiple edge feature extraction methods.
+    
+    Parameters
+    ----------
+    feature_methods : list of callable
+        List of feature extraction methods
+    image : numpy.ndarray
+        Input image with shape (H, W, C)
+    node_info : dict
+        Node information dictionary from node creation
+    edge_index : torch.Tensor
+        Edge index tensor with shape (2, E)
+        
+    Returns
+    -------
+    torch.Tensor
+        Combined edge features
     """
-    # print("Generating graph for image: ", name, " with model: ", model_name)
-    start_time = time.time()
-    G2 = nx.Graph()
-    model,feature_extractor = get_feture_extractor_model(model_name)
-    if len(img.shape) < 3:
-        img = np.stack((img,)*3, axis=-1)
-    seg_imgs = []
-    G, segments  = make_graph(img, name, n_segments, compactness, sigma, multichannel, task, type)
-    for (i, segVal) in enumerate(np.unique(segments)):
-        mask = np.zeros(img.shape[:2], dtype = "uint8")
-        mask[segments == segVal] = 255
-        segimg = cv2.cvtColor(cv2.bitwise_and(img, img, mask = mask), cv2.COLOR_BGR2RGB)
-        segimg = cv2.bitwise_and(img, img, mask = mask)
-        gray = cv2.cvtColor(segimg, cv2.COLOR_BGR2GRAY)
-        thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY)[1]
-        cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cnts = cnts[0] if len(cnts) == 2 else cnts[1]
-        cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
-        seg = segimg.copy()
-        for c in cnts:
-            x,y,w,h = cv2.boundingRect(c)
-            seg = img[y:y+h, x:x+w]
-            break
-        seg = cv2.cvtColor(seg, cv2.COLOR_BGR2RGB)
-        G.nodes[segVal]['img'] = seg
-        seg_imgs.append([seg,segVal])
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        futures = [executor.submit(feature_from_img, seg_img[0],model, feature_extractor ,seg_img[1])  for  i,seg_img in enumerate(seg_imgs)]
-        for future in concurrent.futures.as_completed(futures):
-            try:
-                img_fet,i = future.result()
-                G2.add_node(i,x = img_fet)
-            except Exception as exc:
-                print(f'generated an exception: {exc}')
-                print(traceback.format_exc())
-   
-    end_time = time.time()
-    # print(f"{name} total time take per image is {end_time - start_time}")
-    edges = G.edges
-    for e in edges:
-        G2.add_weighted_edges_from([(e[0],e[1],G[e[0]][e[1]]['weight'])])
-
-    data = None
-    if task == 'classification':
-        data = load_and_transform(G2, name, class_map[class_name])
-
-    return G2,name,data
-
-
-def graph_generator_from_path(img_path : str, model_name : str, name : str, n_segments = 10, compactness = 10, sigma = 1, multichannel = True, task = 'classification', type = True):   
-    """
-    Args: img_path: path of the image
-            segments: numpy array of the segments of the image
-            name: name of the graph
-            task: classification or regression
-            type: type of the graph train/test
-    Returns: PYG Data object
-    """
-    img = read_image(img_path)
-    G,segments = graph_generator(img, model_name, name, n_segments, compactness, sigma, multichannel, task, type)
-    # write_graph(G, name)
-    data = None
-    if task == 'classification':
-        data = load_and_transform(G, name, type)
-    return data if task == 'classification' else G
+    features = [method(image, node_info, edge_index) for method in feature_methods]
+    return torch.cat(features, dim=1)

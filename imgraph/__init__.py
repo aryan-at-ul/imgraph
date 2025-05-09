@@ -1,22 +1,16 @@
-import imgraph.reader
-import imgraph.writer
-# import imgraph.models
-import imgraph.data
-# import imgraph.utils
-import imgraph.pipeline
+"""
+imgraph: A library for converting images to graph representations for graph neural networks
+"""
 
+from imgraph.data.make_graph import GraphBuilder
+from imgraph.data.presets import GraphPresets
+from imgraph.pipeline.config_pipeline import GraphPipeline
 
+__version__ = '0.0.4'
 
-# from .seed import seed_everything
-from .home import get_home_dir, set_home_dir
-
-__version__ = '0.0.7'
-
+# Expose the main classes/functions at the package level
 __all__ = [
-    # 'seed_everything',
-    'get_home_dir',
-    'set_home_dir',
-    'imgraph',
-    '__version__',
+    'GraphBuilder',
+    'GraphPresets',
+    'GraphPipeline'
 ]
-
