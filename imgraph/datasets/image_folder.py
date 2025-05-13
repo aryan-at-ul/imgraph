@@ -9,6 +9,7 @@ from torch_geometric.data import Dataset
 from torchvision.datasets import ImageFolder
 from torchvision import transforms
 from tqdm import tqdm
+import gc  # Garbage collection
 
 from imgraph import GraphPresets
 
@@ -30,15 +31,22 @@ class ImageFolderGraphDataset(Dataset):
         Transform function applied to images, by default None
     force_reload : bool, optional
         Whether to force reload the dataset, by default False
+    max_in_memory : int, optional
+        Maximum number of graphs to keep in memory at once, by default 1000
     """
     
     def __init__(self, root, preset='slic_mean_color', transform=None, pre_transform=None, 
-                 image_transform=None, force_reload=False):
+                 image_transform=None, force_reload=False, max_in_memory=1000):
         """Initialize the ImageFolder graph dataset."""
         self.preset = preset
         self.force_reload = force_reload
-        self.image_transform = image_transform
-        self.processed_data = []
+        self.image_transform = image_transform or transforms.ToTensor()
+        self.max_in_memory = max_in_memory
+        
+        # Only store image indices and labels, not the actual graphs
+        self.all_indices = []
+        self.all_labels = []
+        self.processed_path = None
         
         # Create graph builder
         if isinstance(preset, str):
@@ -62,73 +70,35 @@ class ImageFolderGraphDataset(Dataset):
         self.raw_dirpath = os.path.join(root, 'raw')
         os.makedirs(self.raw_dirpath, exist_ok=True)
         
-        image_transform = image_transform or transforms.ToTensor()
         try:
-            self.image_dataset = ImageFolder(self.raw_dirpath, transform=image_transform)
+            self.image_dataset = ImageFolder(self.raw_dirpath, transform=self.image_transform)
             # Set class names
             self.classes = self.image_dataset.classes
             self.class_to_idx = self.image_dataset.class_to_idx
+            print(f"Found ImageFolder dataset with {len(self.image_dataset)} images and {len(self.classes)} classes")
         except (FileNotFoundError, RuntimeError) as e:
             print(f"Warning: Could not create ImageFolder dataset: {e}")
             self.image_dataset = None
             self.classes = []
             self.class_to_idx = {}
+            print("No image dataset created!")
         
         # Initialize dataset
         super(ImageFolderGraphDataset, self).__init__(root, transform, pre_transform)
         
-        # Load data
-        self._load_or_process_data()
-    
-    def _load_or_process_data(self):
-        """Load or process data depending on what's available."""
-        processed_path = self.processed_paths[0]
-        if os.path.exists(processed_path) and not self.force_reload:
-            try:
-                # Load individual graph files
-                self._load_processed_graphs()
-            except Exception as e:
-                print(f"Error loading processed graphs: {e}")
-                print("Processing data from scratch...")
-                self.process()
-        else:
-            print("Processing data from scratch...")
-            self.process()
-    
-    def _load_processed_graphs(self):
-        """Load processed graphs."""
-        # Find all processed graph files
-        processed_dir = self.processed_dir
-        graph_files = [f for f in os.listdir(processed_dir) if f.endswith('.pt') and f.startswith('graph_')]
+        # Process images
+        self.process()
         
-        # Load graphs
-        for file in graph_files:
-            self.processed_data.append(torch.load(os.path.join(processed_dir, file)))
-        
-        print(f"Loaded {len(self.processed_data)} processed graphs")
+        print(f"Dataset initialized with {len(self.all_indices)} images")
     
     @property
     def raw_dir(self):
-        """
-        Get the raw directory.
-        
-        Returns
-        -------
-        str
-            Raw directory
-        """
+        """Get the raw directory."""
         return self.raw_dirpath
     
     @property
     def processed_dir(self):
-        """
-        Get the processed directory.
-        
-        Returns
-        -------
-        str
-            Processed directory
-        """
+        """Get the processed directory."""
         processed_dirpath = os.path.join(self.root, 'processed')
         os.makedirs(processed_dirpath, exist_ok=True)
         return processed_dirpath
@@ -136,153 +106,140 @@ class ImageFolderGraphDataset(Dataset):
     @property
     def raw_file_names(self):
         """List of raw file names."""
-        # ImageFolder has no specific raw files
         return []
     
     @property
     def processed_file_names(self):
         """List of processed file names."""
-        return ['done.txt']  # Marker file to indicate processing is done
+        return ['dataset_info.pt']
     
     def download(self):
         """Download the dataset (not required for ImageFolder)."""
-        # No download needed for ImageFolder
         pass
     
     def process(self):
         """Process the dataset into graphs."""
-        # Check if processed file exists and force_reload is False
-        processed_marker = self.processed_paths[0]
-        if os.path.exists(processed_marker) and not self.force_reload:
+        processed_path = self.processed_paths[0]
+        self.processed_path = processed_path
+        
+        # Check if the dataset has already been processed
+        if os.path.exists(processed_path) and not self.force_reload:
+            try:
+                # Load dataset info
+                dataset_info = torch.load(processed_path)
+                self.all_indices = dataset_info['indices']
+                self.all_labels = dataset_info['labels']
+                print(f"Loaded dataset info with {len(self.all_indices)} samples")
+                return
+            except Exception as e:
+                print(f"Failed to load dataset info: {e}")
+                print("Will process dataset from scratch")
+        
+        # Check if we have an image dataset
+        if self.image_dataset is None or len(self.image_dataset) == 0:
+            print("No images found in the dataset. Cannot process.")
             return
         
-        # Create image dataset if it doesn't exist
-        if self.image_dataset is None:
-            image_transform = self.image_transform or transforms.ToTensor()
+        # Process images
+        print(f"Processing {len(self.image_dataset)} images into graphs...")
+        indices = []
+        labels = []
+        
+        for idx in tqdm(range(len(self.image_dataset))):
             try:
-                self.image_dataset = ImageFolder(self.raw_dir, transform=image_transform)
-                # Set class names
-                self.classes = self.image_dataset.classes
-                self.class_to_idx = self.image_dataset.class_to_idx
-            except (FileNotFoundError, RuntimeError) as e:
-                raise RuntimeError(f"Failed to create ImageFolder dataset: {e}")
-        
-        # Process images to individual graph files
-        print("Processing images...")
-        self.processed_data = []
-        
-        try:
-            for idx in tqdm(range(len(self.image_dataset))):
                 # Get image and label
-                img, label = self.image_dataset[idx]
+                _, label = self.image_dataset[idx]
                 
-                # Convert to numpy array if needed
-                if isinstance(img, torch.Tensor):
-                    img = img.permute(1, 2, 0).numpy()
+                # Store index and label
+                indices.append(idx)
+                labels.append(label)
                 
-                # Pre-transform if available
-                if self.pre_transform is not None:
-                    img = self.pre_transform(img)
-                
-                # Convert to graph
-                try:
-                    graph = self.graph_builder(img)
-                    
-                    # Add label
-                    graph.y = torch.tensor(label, dtype=torch.long)
-                    
-                    # Add file path for reference
-                    path, _ = self.image_dataset.samples[idx]
-                    graph.path = path
-                    
-                    # Save the individual graph
-                    output_path = os.path.join(self.processed_dir, f'graph_{idx}.pt')
-                    torch.save(graph, output_path)
-                    
-                    # Add to processed data list
-                    self.processed_data.append(graph)
-                except Exception as e:
-                    print(f"Error processing image {idx}: {e}")
+                # Process in small batches to save memory
+                if len(indices) % 100 == 0:
+                    # Save progress periodically
+                    dataset_info = {
+                        'indices': indices,
+                        'labels': labels
+                    }
+                    torch.save(dataset_info, processed_path)
             
-            # Save a marker file to indicate processing is complete
-            if len(self.processed_data) > 0:
-                with open(processed_marker, 'w') as f:
-                    f.write(f"Processed {len(self.processed_data)} graphs")
-                
-                print(f"Saved {len(self.processed_data)} processed graphs")
-            else:
-                raise ValueError("No graphs were created from the images")
-                
-        except Exception as e:
-            # If anything goes wrong during processing, remove any potentially partial processed files
-            for f in os.listdir(self.processed_dir):
-                if f.startswith('graph_'):
-                    os.remove(os.path.join(self.processed_dir, f))
+            except Exception as e:
+                print(f"Error processing image {idx}: {e}")
+        
+        # Save final dataset info
+        dataset_info = {
+            'indices': indices,
+            'labels': labels
+        }
+        torch.save(dataset_info, processed_path)
+        
+        # Set instance variables
+        self.all_indices = indices
+        self.all_labels = labels
+        
+        print(f"Processed {len(indices)} images successfully")
+        print("Done!")
+    
+    def _process_image(self, idx):
+        """Process an image into a graph."""
+        if self.image_dataset is None:
+            raise RuntimeError("No image dataset available")
             
-            if os.path.exists(processed_marker):
-                os.remove(processed_marker)
-                
-            raise RuntimeError(f"Error during processing: {e}")
+        # Get image and label
+        img, label = self.image_dataset[idx]
+        
+        # Convert to numpy array if needed
+        if isinstance(img, torch.Tensor):
+            img = img.permute(1, 2, 0).numpy()
+        
+        # Apply pre-transform if provided
+        if self.pre_transform is not None:
+            img = self.pre_transform(img)
+        
+        # Convert to graph
+        graph = self.graph_builder(img)
+        
+        # Add label
+        graph.y = torch.tensor(label, dtype=torch.long)
+        
+        return graph
     
     def len(self):
-        """
-        Get the number of graphs in the dataset.
-        
-        Returns
-        -------
-        int
-            Number of graphs
-        """
-        return len(self.processed_data)
+        """Get the number of graphs in the dataset."""
+        return len(self.all_indices)
     
     def get(self, idx):
-        """
-        Get a graph by index.
-        
-        Parameters
-        ----------
-        idx : int
-            Index of the graph
+        """Get a graph by index."""
+        if idx >= len(self.all_indices):
+            raise IndexError(f"Index {idx} out of range for dataset with {len(self.all_indices)} samples")
             
-        Returns
-        -------
-        torch_geometric.data.Data
-            Graph data object
-        """
-        data = self.processed_data[idx]
+        # Process the image on-the-fly to save memory
+        image_idx = self.all_indices[idx]
         
+        # Process the image
+        data = self._process_image(image_idx)
+        
+        # Apply transform if needed
         if self.transform is not None:
             data = self.transform(data)
             
         return data
     
     def get_train_test_split(self, train_ratio=0.8, stratify=True, random_seed=42):
-        """
-        Split the dataset into train and test sets.
-        
-        Parameters
-        ----------
-        train_ratio : float, optional
-            Ratio of training samples, by default 0.8
-        stratify : bool, optional
-            Whether to use stratified sampling based on class labels, by default True
-        random_seed : int, optional
-            Random seed, by default 42
+        """Split the dataset into train and test sets."""
+        # Check if we have enough data
+        if len(self) < 2:
+            raise ValueError(f"Dataset has only {len(self)} samples, need at least 2 for splitting")
             
-        Returns
-        -------
-        tuple
-            (train_dataset, test_dataset)
-        """
         from torch.utils.data import Subset
         from sklearn.model_selection import train_test_split
         
         # Get indices and labels
         indices = list(range(len(self)))
-        labels = [self[i].y.item() for i in indices]
+        labels = self.all_labels
         
         # Split indices
-        if stratify:
+        if stratify and len(set(labels)) > 1:
             train_indices, test_indices = train_test_split(
                 indices, train_size=train_ratio, stratify=labels, random_state=random_seed
             )

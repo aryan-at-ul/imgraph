@@ -107,8 +107,8 @@ def main():
         parser.add_argument('--output_dir', type=str, default='output', help='Output directory for processed graphs')
         parser.add_argument('--results_dir', type=str, default='results', help='Results directory for training results')
         parser.add_argument('--model', type=str, default='gcn', choices=['gcn', 'gat', 'gin', 'sage'], help='GNN model to train')
-        parser.add_argument('--batch_size', type=int, default=32, help='Batch size')
-        parser.add_argument('--epochs', type=int, default=100, help='Number of epochs')
+        parser.add_argument('--batch_size', type=int, default=4, help='Batch size')
+        parser.add_argument('--epochs', type=int, default=10, help='Number of epochs')
         parser.add_argument('--lr', type=float, default=0.001, help='Learning rate')
         parser.add_argument('--patience', type=int, default=10, help='Patience for early stopping')
         parser.add_argument('--preset', type=str, default='slic_mean_color', 
