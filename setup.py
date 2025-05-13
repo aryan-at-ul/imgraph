@@ -49,6 +49,7 @@ full_requires = graphgym_requires + modelhub_requires + [
     "torchvision",
     "torchmetrics",
     "torchvision",
+    "seaborn",
     # "torch-scatter",
     # "torch-sparse",
     # "torch-cluster",

@@ -1,11 +1,21 @@
-from .gcn import gcn_model
-from .gat import gat_model
-from .gin import gin_model
+"""
+Model implementations for graph neural networks.
+"""
 
+from imgraph.models.base import BaseGNN
+from imgraph.models.gcn import GCN, GCNWithEdgeFeatures
+from imgraph.models.gat import GAT, GATWithEdgeFeatures
+from imgraph.models.gin import GIN, GINWithEdgeFeatures
+from imgraph.models.sage import GraphSAGE, GraphSAGEWithEdgeFeatures
 
-
-
-__all__ = ['gcn_model',
-            'gat_model',
-            'gin_model'
-           ]
+__all__ = [
+    'BaseGNN',
+    'GCN',
+    'GCNWithEdgeFeatures',
+    'GAT',
+    'GATWithEdgeFeatures',
+    'GIN',
+    'GINWithEdgeFeatures',
+    'GraphSAGE',
+    'GraphSAGEWithEdgeFeatures'
+]

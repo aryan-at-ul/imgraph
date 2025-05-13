@@ -217,4 +217,4 @@ def dense_grid_edges(node_info, image=None):
     else:
         edge_index = torch.zeros((2, 0), dtype=torch.long)
     
-    return edge_index
+    return edge_index

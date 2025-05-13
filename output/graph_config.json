@@ -1,0 +1,30 @@
+{
+    "node_creation": {
+        "method": "slic_superpixel_nodes",
+        "params": {
+            "n_segments": 100,
+            "compactness": 10,
+            "sigma": 1.0
+        }
+    },
+    "node_features": {
+        "method": "mean_color_features",
+        "params": {
+            "color_space": "rgb",
+            "normalize": true
+        }
+    },
+    "edge_creation": {
+        "method": "region_adjacency_edges",
+        "params": {
+            "connectivity": 1
+        }
+    },
+    "edge_features": {
+        "method": "color_difference",
+        "params": {
+            "color_space": "rgb",
+            "normalize": true
+        }
+    }
+}

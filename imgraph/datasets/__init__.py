@@ -1,9 +1,13 @@
-from .mnist_dataset import get_minst_dataset
-from .pneumonia_dataset import get_pneumonia_dataset
-
-
+from imgraph.datasets.image_folder import ImageFolderGraphDataset
+from imgraph.datasets.mnist_dataset import MNISTGraphDataset, get_mnist_dataset  # Add this function
+from imgraph.datasets.medmnist_dataset import MedMNISTGraphDataset
+from imgraph.datasets.standard import CIFAR10GraphDataset, CIFAR100GraphDataset
 
 __all__ = [
-    'get_minst_dataset',
-    'get_pneumonia_dataset',
+    'ImageFolderGraphDataset',
+    'MNISTGraphDataset',
+    'MedMNISTGraphDataset',
+    'CIFAR10GraphDataset',
+    'CIFAR100GraphDataset',
+    'get_mnist_dataset'  # Add this function to __all__
 ]
