@@ -1,5 +1,5 @@
 site_name: ImGraph
-site_description: "This is a project to convert image to graph and apply learning methods on graphs."
+site_description: "A Python library for converting images to graph representations and applying Graph Neural Networks (GNNs) to image analysis tasks."
 
 repo_url: https://github.com/aryan-at-ul/imgraph
 repo_name: imgraph
@@ -34,11 +34,73 @@ markdown_extensions:
   - pymdownx.superfences
 
 nav:
-  - "imgraph": index.md
-  - "imgraph.pipeline": pipeline.md
-  - "imgraph.data": data.md
-  - "imgraph.reader": reader.md
-  - "imgraph.writer": writer.md
-  - "imgraph.datasets" : datasets.md
-  - "imgraph.models" : models.md
-  - "imgraph.utils" : utils.md
+  - Home: index.md
+  - Data:
+      - Edge Creation:
+          - Grid Edges: imgraph/data/edge_creation/grid_edges.md
+          - Distance Edges: imgraph/data/edge_creation/distance_edges.md
+          - Region Adjacency: imgraph/data/edge_creation/region_adjacency.md
+          - Similarity Edges: imgraph/data/edge_creation/similarity_edges.md
+      - Edge Features:
+          - Boundary Features: imgraph/data/edge_features/boundary_features.md
+          - Feature Diff: imgraph/data/edge_features/feature_diff.md
+          - Geometric Features: imgraph/data/edge_features/geometric_features.md
+      - Node Features:
+          - CNN Features: imgraph/data/node_features/cnn_features.md
+          - Color Features: imgraph/data/node_features/color_features.md
+          - Position Features: imgraph/data/node_features/position_features.md
+          - Texture Features: imgraph/data/node_features/texture_features.md
+      - Node Creation:
+          - Patch Nodes: imgraph/data/node_creation/patch_nodes.md
+          - Pixel Nodes: imgraph/data/node_creation/pixel_nodes.md
+          - Superpixel Nodes: imgraph/data/node_creation/superpixel_nodes.md
+      - Other:
+          - Feature Extractor: imgraph/data/feature_extractor.md
+          - Make Graph: imgraph/data/make_graph.md
+          - Legacy: imgraph/data/legacy.md
+          - Presets: imgraph/data/presets.md
+          - Transform Graph: imgraph/data/transform_graph.md
+
+  - Datasets:
+      - MNIST Dataset: imgraph/datasets/mnist_dataset.md
+      - MedMNIST Dataset: imgraph/datasets/medmnist_dataset.md
+      - Pneumonia Dataset: imgraph/datasets/pneumonia_dataset.md
+      - Image Folder: imgraph/datasets/image_folder.md
+      - Standard Dataset: imgraph/datasets/standard.md
+      - URL Config: imgraph/datasets/url_config.md
+
+  - Models:
+      - GCN: imgraph/models/gcn.md
+      - GAT: imgraph/models/gat.md
+      - GIN: imgraph/models/gin.md
+      - GraphSAGE: imgraph/models/sage.md
+      - Base Model: imgraph/models/base.md
+
+  - Pipeline:
+      - Folder Pipeline: imgraph/pipeline/folder_pipeline.md
+      - From Dataset: imgraph/pipeline/from_dataset.md
+      - Config Pipeline: imgraph/pipeline/config_pipeline.md
+
+  - Reader:
+      - Read Directory: imgraph/reader/read_directory.md
+      - Read Files: imgraph/reader/read_files.md
+
+  - Writer:
+      - Make Dirs: imgraph/writer/makedirs.md
+      - Write Files: imgraph/writer/write_files.md
+
+  - Training:
+      - Trainer: imgraph/training/trainer.md
+      - Training Utils: imgraph/training/utils.md
+
+  - Utils:
+      - Feature Size: imgraph/utils/feature_size.md
+
+  - Visualization:
+      - Graph Plots: imgraph/visualization/graph_plots.md
+
+  - Examples:
+      - Basic Graph Creation: imgraph/examples/basic_graph_creation.md
+      - Comprehensive Graph Creation: imgraph/examples/comprehensive_graph_creation.md
+      - Training on Folder: imgraph/examples/training_image_folder_example.md
+      - Training on Synthetic: imgraph/examples/training_synthetic_example.md
