@@ -1,0 +1,32 @@
+# Normalize line endings
+* text=auto
+
+# Treat Python files as text
+*.py text
+
+# Treat Markdown and YAML files as UTF-8 text
+*.md text
+*.yml text
+*.yaml text
+
+# Ensure shell scripts use LF
+*.sh text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.svg binary
+*.ico binary
+
+# Handle common compressed formats
+*.gz binary
+*.zip binary
+*.tar binary
+*.whl binary
+
+# Mark documentation build output to be ignored
+/site/* linguist-generated
+
