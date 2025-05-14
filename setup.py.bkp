@@ -41,22 +41,16 @@ full_requires = graphgym_requires + modelhub_requires + [
     'scikit-image',
     'pytorch-memlab',
     'pgmpy',
-    'opt_einsum',  # required for pgmpy
+    'opt_einsum',
     'statsmodels',
-    "scikit-image",
-    "opencv-python",
-    "timm",
-    "torchvision",
-    "torchmetrics",
-    "torchvision",
-    "seaborn",
-    # "torch-scatter",
-    # "torch-sparse",
-    # "torch-cluster",
-    # "torch-spline-conv",
-    # "torch-geometric-temporal",
-    "torch",
-    "torch-geometric",
+    'scikit-image',
+    'opencv-python',
+    'timm',
+    'torchvision',
+    'torchmetrics',
+    'seaborn',
+    'torch',
+    'torch-geometric',
 ]
 
 benchmark_requires = [
@@ -74,22 +68,20 @@ test_requires = [
     'onnxruntime',
 ]
 
-dev_requires = test_requires + [
-    'pre-commit',
-]
+dev_requires = test_requires + ['pre-commit']
+
+
 
 setup(
-    name='imgraph',
-    version=__version__,
-    install_requires=full_requires,
-    extras_require={
-        'graphgym': graphgym_requires,
-        'modelhub': modelhub_requires,
-        'full': full_requires,
-        'benchmark': benchmark_requires,
-        'test': test_requires,
-        'dev': dev_requires,
-    },
+    name="imgraph",
+    version="0.1.0",
+    description="Graph Neural Network Library Built On Top Of PyTorch and PyTorch Geometric",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    author="Aryan Singh",
+    author_email="aryan.singh@ul.ie",
+    url="https://github.com/aryan-at-ul/imgraph.git",
+    license="MIT",
     packages=find_packages(),
-    # include_package_data=True,  # Ensure that `*.jinja` files are found.
+    python_requires=">=3.7",
 )
