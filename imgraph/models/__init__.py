@@ -7,6 +7,7 @@ from imgraph.models.gcn import GCN, GCNWithEdgeFeatures
 from imgraph.models.gat import GAT, GATWithEdgeFeatures
 from imgraph.models.gin import GIN, GINWithEdgeFeatures
 from imgraph.models.sage import GraphSAGE, GraphSAGEWithEdgeFeatures
+from imgraph.models.custom_gnn import CustomGNN, CustomGNNWithEdgeFeatures
 
 __all__ = [
     'BaseGNN',
@@ -17,5 +18,7 @@ __all__ = [
     'GIN',
     'GINWithEdgeFeatures',
     'GraphSAGE',
-    'GraphSAGEWithEdgeFeatures'
+    'GraphSAGEWithEdgeFeatures',
+    'CustomGNN',
+    'CustomGNNWithEdgeFeatures'
 ]
