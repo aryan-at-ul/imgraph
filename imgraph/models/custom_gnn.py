@@ -65,6 +65,12 @@ class CustomGNN(BaseGNN):
         self.dropout = dropout
         self.activation = activation
         
+        # Identify if we're using a special pooling layer (TopK, SAG, etc.)
+        self.is_special_pooling = not isinstance(pooling_method, str)
+        self.custom_pooling = None
+        if self.is_special_pooling:
+            self.custom_pooling = pooling_method
+        
         # Handle single layer class or list of layer classes
         if gnn_layer_cls is None:
             raise ValueError("gnn_layer_cls must be provided")
@@ -76,10 +82,6 @@ class CustomGNN(BaseGNN):
         # Ensure we have enough layer classes
         if len(gnn_layer_cls) < num_layers:
             gnn_layer_cls.extend([gnn_layer_cls[-1]] * (num_layers - len(gnn_layer_cls)))
-        
-        # Store the custom pooling method if it's a callable (not a string)
-        if not isinstance(pooling_method, str):
-            self.pool = pooling_method
         
         # Create GNN layers
         self.convs = nn.ModuleList()
@@ -122,12 +124,13 @@ class CustomGNN(BaseGNN):
             Output predictions (logits)
         """
         x, edge_index, batch = data.x, data.edge_index, data.batch
+        edge_attr = data.edge_attr if hasattr(data, 'edge_attr') else None
         
         # Process through GNN layers
         for i, conv in enumerate(self.convs):
             # Check if the layer supports edge attributes
-            if hasattr(data, 'edge_attr') and hasattr(conv, 'supports_edge_attr') and conv.supports_edge_attr:
-                x = conv(x, edge_index, data.edge_attr)
+            if edge_attr is not None and hasattr(conv, 'supports_edge_attr') and conv.supports_edge_attr:
+                x = conv(x, edge_index, edge_attr)
             else:
                 x = conv(x, edge_index)
             
@@ -137,7 +140,19 @@ class CustomGNN(BaseGNN):
         
         # Apply pooling if batch information is available
         if batch is not None:
-            x = self.pool(x, batch)
+            if self.is_special_pooling:
+                # Handle special pooling layers like TopKPooling
+                if hasattr(self.custom_pooling, 'forward'):
+                    # TopKPooling and similar layers need edge_index
+                    x, edge_index, _, batch, _, _ = self.custom_pooling(x, edge_index, None, batch)
+                    # After special pooling, apply global mean pooling
+                    x = global_mean_pool(x, batch)
+                else:
+                    # Custom pooling function that takes (x, batch)
+                    x = self.custom_pooling(x, batch)
+            else:
+                # Standard pooling from parent class
+                x = self.pool(x, batch)
         
         # Use the base class's readout layers for final classification
         out = self.readout(x)

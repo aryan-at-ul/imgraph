@@ -1,7 +1,7 @@
 # imgraph: Graph Neural Networks for Image Processing
 
 [![Python Versions](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue)](https://pypi.org/project/imgraph/)
-[![PyPI Version](https://img.shields.io/badge/pypi-v0.1.2-blue)](https://pypi.org/project/imgraph/)
+[![PyPI Version](https://img.shields.io/badge/pypi-v0.1.3-blue)](https://pypi.org/project/imgraph/)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
 `imgraph` is a Python library for converting images to graph representations and applying Graph Neural Networks (GNNs) to image analysis tasks. Built on top of PyTorch and PyTorch Geometric, it provides an easy-to-use interface for a variety of image-to-graph conversion methods and GNN architectures. The library supports multiple methods for node creation, feature extraction, and edge construction to enable the most effective graph representation for your specific computer vision task.

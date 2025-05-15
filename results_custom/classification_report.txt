@@ -2,10 +2,10 @@
 
       circle       0.50      0.50      0.50         6
    rectangle       0.50      0.29      0.36         7
-    triangle       0.33      0.11      0.17         9
-       cross       0.50      0.17      0.25        12
+    triangle       0.50      0.11      0.18         9
+       cross       0.60      0.25      0.35        12
      ellipse       0.17      0.67      0.28         6
 
-    accuracy                           0.30        40
-   macro avg       0.40      0.35      0.31        40
-weighted avg       0.41      0.30      0.29        40
+    accuracy                           0.33        40
+   macro avg       0.45      0.36      0.33        40
+weighted avg       0.48      0.33      0.33        40
