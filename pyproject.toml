@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "imgraph"
-version = "0.1.3"
+version = "0.1.4"
 description = "Graph Neural Network Library Built On Top Of PyTorch and PyTorch Geometric"
 readme = "README.md"
 requires-python = ">=3.7"
