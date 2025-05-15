@@ -326,6 +326,187 @@ patches_graph = graphs[1]
 comprehensive_graph = graphs[2]
 ```
 
+### CustomGNN: Building Flexible Graph Neural Networks
+
+ImGraph provides the `CustomGNN` model, which enables you to create advanced graph neural network architectures with complete flexibility over layers, pooling methods, and feature handling.
+
+#### Creating Custom Architectures
+
+```python
+from torch_geometric.nn import GCNConv, GATConv, SAGEConv
+from imgraph.models import CustomGNN
+
+# Basic GNN with standard layers
+model = CustomGNN(
+    num_features=node_feature_dim,
+    hidden_dim=64,
+    num_classes=num_classes,
+    gnn_layer_cls=GCNConv
+)
+
+# Advanced: Mix different layer types in a single model
+model = CustomGNN(
+    num_features=node_feature_dim,
+    hidden_dim=64,
+    num_classes=num_classes,
+    num_layers=3,
+    gnn_layer_cls=[
+        GCNConv,                                                # Layer 1: GCN
+        lambda in_c, out_c: GATConv(in_c, out_c, heads=4, concat=False),  # Layer 2: GAT
+        SAGEConv                                               # Layer 3: SAGE
+    ]
+)
+```
+
+#### Working with Edge Features
+
+For tasks that benefit from edge information (boundary detection, spatial relationships):
+
+```python
+from imgraph.models import CustomGNNWithEdgeFeatures
+
+model = CustomGNNWithEdgeFeatures(
+    num_features=node_feature_dim,
+    hidden_dim=64,
+    num_classes=num_classes,
+    edge_dim=edge_feature_dim,
+    gnn_layer_cls=GCNConv
+)
+```
+
+#### Custom Pooling and Hierarchical Architectures
+
+You can specify different pooling strategies or create hierarchical architectures:
+
+```python
+from torch_geometric.nn import TopKPooling
+from imgraph.models import CustomGNN
+
+# Using different pooling methods
+model = CustomGNN(
+    num_features=node_feature_dim,
+    hidden_dim=64,
+    num_classes=num_classes,
+    pooling_method='max',  # Options: 'mean', 'max', 'sum'
+    gnn_layer_cls=GCNConv
+)
+
+# Custom pooling layer
+pooling_layer = TopKPooling(64, ratio=0.5)
+model = CustomGNN(
+    num_features=node_feature_dim,
+    hidden_dim=64,
+    num_classes=num_classes,
+    pooling_method=pooling_layer,
+    gnn_layer_cls=GCNConv
+)
+```
+
+#### Implementing Domain-Specific Layers
+
+You can create specialized GNN layers for image analysis tasks:
+
+```python
+import torch.nn as nn
+from torch_geometric.nn import MessagePassing
+from imgraph.models import CustomGNN
+
+# Custom layer for texture-aware graph processing
+class TextureAwareConv(MessagePassing):
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super().__init__(aggr='max')
+        self.texture_lin = nn.Linear(in_channels // 2, out_channels // 2)
+        self.other_lin = nn.Linear(in_channels // 2, out_channels // 2)
+        self.combine_lin = nn.Linear(out_channels, out_channels)
+        self.out_channels = out_channels  # Required for CustomGNN
+    
+    def forward(self, x, edge_index):
+        # Split features (assuming first half are texture features)
+        x_texture = x[:, :x.size(1) // 2]
+        x_other = x[:, x.size(1) // 2:]
+        
+        # Process separately
+        x_texture = self.texture_lin(x_texture)
+        x_other = self.other_lin(x_other)
+        
+        # Combine and apply message passing
+        x = torch.cat([x_texture, x_other], dim=1)
+        x = self.combine_lin(x)
+        return self.propagate(edge_index, x=x)
+
+# Use custom layer with CustomGNN
+model = CustomGNN(
+    num_features=node_feature_dim,
+    hidden_dim=64,
+    num_classes=num_classes,
+    gnn_layer_cls=TextureAwareConv
+)
+```
+
+#### Multi-Scale Feature Extraction
+
+For complex visual tasks, you can build a model that captures features at multiple scales:
+
+```python
+from torch_geometric.nn import GCNConv, global_mean_pool, global_max_pool
+import torch.nn.functional as F
+
+class MultiScaleGNN(nn.Module):
+    def __init__(self, num_features, num_classes):
+        super().__init__()
+        # Feature extraction at different scales
+        self.conv1 = GCNConv(num_features, 32)
+        self.conv2 = GCNConv(32, 64)
+        self.conv3 = GCNConv(64, 128)
+        
+        # Final classifier
+        self.classifier = nn.Linear(32 + 64 + 128, num_classes)
+    
+    def forward(self, data):
+        x, edge_index, batch = data.x, data.edge_index, data.batch
+        
+        # Multi-scale feature extraction
+        x1 = F.relu(self.conv1(x, edge_index))
+        x2 = F.relu(self.conv2(x1, edge_index))
+        x3 = F.relu(self.conv3(x2, edge_index))
+        
+        # Multi-scale pooling
+        x1_pool = global_mean_pool(x1, batch)
+        x2_pool = global_mean_pool(x2, batch)
+        x3_pool = global_max_pool(x3, batch)
+        
+        # Combine features from different scales
+        x_combined = torch.cat([x1_pool, x2_pool, x3_pool], dim=1)
+        
+        # Classification
+        out = self.classifier(x_combined)
+        return out
+
+# Wrap in CustomGNN for compatibility with ImGraph pipeline
+# (See the documentation for details on wrapping custom architectures)
+```
+
+#### Best Practices for Advanced Usage
+
+1. **Layer Selection**: Match the GNN layer type to your specific task:
+   - GCNConv: Good baseline, captures local structure
+   - GATConv: Better for nodes with varying importance
+   - SAGEConv: Better for large, heterogeneous graphs
+   - Custom layers: For domain-specific feature extraction
+
+2. **Edge Features**: Always use edge features when working with region adjacency graphs or when boundary information is important
+
+3. **Pooling Strategy**: Choose based on your task:
+   - 'mean': Balanced representation of all nodes
+   - 'max': Captures the most important features
+   - 'sum': Preserves information about graph size
+
+4. **Custom Layers**: Create specialized layers when working with multiple feature types (texture, color, position) to process them differently
+
+See the example scripts (`training_custom_gnn_example.py`) for more detailed implementations and use cases.
+
+
+
 ## 📝 Citation
 
 If you use `imgraph` in your research, please cite:
