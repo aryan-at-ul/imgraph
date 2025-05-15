@@ -471,6 +471,75 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#customgnn-building-flexible-graph-neural-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      CustomGNN: Building Flexible Graph Neural Networks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CustomGNN: Building Flexible Graph Neural Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Custom Architectures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-edge-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Edge Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-pooling-and-hierarchical-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Pooling and Hierarchical Architectures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-domain-specific-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing Domain-Specific Layers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-scale-feature-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Scale Feature Extraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Advanced Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1543,6 +1612,29 @@
   
   
     <li class="md-nav__item">
+      <a href="imgraph/models/custom_gnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CustomGNN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="imgraph/models/base/" class="md-nav__link">
         
   
@@ -2418,6 +2510,75 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#customgnn-building-flexible-graph-neural-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      CustomGNN: Building Flexible Graph Neural Networks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CustomGNN: Building Flexible Graph Neural Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Custom Architectures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-edge-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Edge Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-pooling-and-hierarchical-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Pooling and Hierarchical Architectures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-domain-specific-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing Domain-Specific Layers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-scale-feature-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Scale Feature Extraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Advanced Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2471,7 +2632,7 @@
 
 <h1 id="imgraph-graph-neural-networks-for-image-processing">imgraph: Graph Neural Networks for Image Processing</h1>
 <p><a href="https://pypi.org/project/imgraph/"><img alt="Python Versions" src="https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue" /></a>
-<a href="https://pypi.org/project/imgraph/"><img alt="PyPI Version" src="https://img.shields.io/badge/pypi-v0.0.9-blue" /></a>
+<a href="https://pypi.org/project/imgraph/"><img alt="PyPI Version" src="https://img.shields.io/badge/pypi-v0.1.4-blue" /></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/license-MIT-green" /></a></p>
 <p><code>imgraph</code> is a Python library for converting images to graph representations and applying Graph Neural Networks (GNNs) to image analysis tasks. Built on top of PyTorch and PyTorch Geometric, it provides an easy-to-use interface for a variety of image-to-graph conversion methods and GNN architectures. The library supports multiple methods for node creation, feature extraction, and edge construction to enable the most effective graph representation for your specific computer vision task.</p>
 <h2 id="key-features">🔑 Key Features</h2>
@@ -2759,6 +2920,170 @@ pip<span class="w"> </span>install<span class="w"> </span>imgraph<span class="o"
 <span class="n">patches_graph</span> <span class="o">=</span> <span class="n">graphs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">comprehensive_graph</span> <span class="o">=</span> <span class="n">graphs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 </code></pre></div>
+<h3 id="customgnn-building-flexible-graph-neural-networks">CustomGNN: Building Flexible Graph Neural Networks</h3>
+<p>ImGraph provides the <code>CustomGNN</code> model, which enables you to create advanced graph neural network architectures with complete flexibility over layers, pooling methods, and feature handling.</p>
+<h4 id="creating-custom-architectures">Creating Custom Architectures</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">GCNConv</span><span class="p">,</span> <span class="n">GATConv</span><span class="p">,</span> <span class="n">SAGEConv</span>
+<span class="kn">from</span> <span class="nn">imgraph.models</span> <span class="kn">import</span> <span class="n">CustomGNN</span>
+
+<span class="c1"># Basic GNN with standard layers</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomGNN</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_feature_dim</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span>
+    <span class="n">gnn_layer_cls</span><span class="o">=</span><span class="n">GCNConv</span>
+<span class="p">)</span>
+
+<span class="c1"># Advanced: Mix different layer types in a single model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomGNN</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_feature_dim</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span>
+    <span class="n">num_layers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">gnn_layer_cls</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">GCNConv</span><span class="p">,</span>                                                <span class="c1"># Layer 1: GCN</span>
+        <span class="k">lambda</span> <span class="n">in_c</span><span class="p">,</span> <span class="n">out_c</span><span class="p">:</span> <span class="n">GATConv</span><span class="p">(</span><span class="n">in_c</span><span class="p">,</span> <span class="n">out_c</span><span class="p">,</span> <span class="n">heads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">concat</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>  <span class="c1"># Layer 2: GAT</span>
+        <span class="n">SAGEConv</span>                                               <span class="c1"># Layer 3: SAGE</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="working-with-edge-features">Working with Edge Features</h4>
+<p>For tasks that benefit from edge information (boundary detection, spatial relationships):</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">imgraph.models</span> <span class="kn">import</span> <span class="n">CustomGNNWithEdgeFeatures</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomGNNWithEdgeFeatures</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_feature_dim</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span>
+    <span class="n">edge_dim</span><span class="o">=</span><span class="n">edge_feature_dim</span><span class="p">,</span>
+    <span class="n">gnn_layer_cls</span><span class="o">=</span><span class="n">GCNConv</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="custom-pooling-and-hierarchical-architectures">Custom Pooling and Hierarchical Architectures</h4>
+<p>You can specify different pooling strategies or create hierarchical architectures:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">TopKPooling</span>
+<span class="kn">from</span> <span class="nn">imgraph.models</span> <span class="kn">import</span> <span class="n">CustomGNN</span>
+
+<span class="c1"># Using different pooling methods</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomGNN</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_feature_dim</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span>
+    <span class="n">pooling_method</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span>  <span class="c1"># Options: &#39;mean&#39;, &#39;max&#39;, &#39;sum&#39;</span>
+    <span class="n">gnn_layer_cls</span><span class="o">=</span><span class="n">GCNConv</span>
+<span class="p">)</span>
+
+<span class="c1"># Custom pooling layer</span>
+<span class="n">pooling_layer</span> <span class="o">=</span> <span class="n">TopKPooling</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomGNN</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_feature_dim</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span>
+    <span class="n">pooling_method</span><span class="o">=</span><span class="n">pooling_layer</span><span class="p">,</span>
+    <span class="n">gnn_layer_cls</span><span class="o">=</span><span class="n">GCNConv</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="implementing-domain-specific-layers">Implementing Domain-Specific Layers</h4>
+<p>You can create specialized GNN layers for image analysis tasks:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">MessagePassing</span>
+<span class="kn">from</span> <span class="nn">imgraph.models</span> <span class="kn">import</span> <span class="n">CustomGNN</span>
+
+<span class="c1"># Custom layer for texture-aware graph processing</span>
+<span class="k">class</span> <span class="nc">TextureAwareConv</span><span class="p">(</span><span class="n">MessagePassing</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">aggr</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">texture_lin</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_channels</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">out_channels</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_lin</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_channels</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">out_channels</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">combine_lin</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>  <span class="c1"># Required for CustomGNN</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">):</span>
+        <span class="c1"># Split features (assuming first half are texture features)</span>
+        <span class="n">x_texture</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">x_other</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:]</span>
+
+        <span class="c1"># Process separately</span>
+        <span class="n">x_texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">texture_lin</span><span class="p">(</span><span class="n">x_texture</span><span class="p">)</span>
+        <span class="n">x_other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">other_lin</span><span class="p">(</span><span class="n">x_other</span><span class="p">)</span>
+
+        <span class="c1"># Combine and apply message passing</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_texture</span><span class="p">,</span> <span class="n">x_other</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combine_lin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Use custom layer with CustomGNN</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomGNN</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_feature_dim</span><span class="p">,</span>
+    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span>
+    <span class="n">gnn_layer_cls</span><span class="o">=</span><span class="n">TextureAwareConv</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="multi-scale-feature-extraction">Multi-Scale Feature Extraction</h4>
+<p>For complex visual tasks, you can build a model that captures features at multiple scales:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">GCNConv</span><span class="p">,</span> <span class="n">global_mean_pool</span><span class="p">,</span> <span class="n">global_max_pool</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="k">class</span> <span class="nc">MultiScaleGNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_features</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Feature extraction at different scales</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="n">num_features</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+
+        <span class="c1"># Final classifier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">128</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">,</span> <span class="n">batch</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">batch</span>
+
+        <span class="c1"># Multi-scale feature extraction</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">))</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">))</span>
+        <span class="n">x3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">))</span>
+
+        <span class="c1"># Multi-scale pooling</span>
+        <span class="n">x1_pool</span> <span class="o">=</span> <span class="n">global_mean_pool</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">x2_pool</span> <span class="o">=</span> <span class="n">global_mean_pool</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">x3_pool</span> <span class="o">=</span> <span class="n">global_max_pool</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+        <span class="c1"># Combine features from different scales</span>
+        <span class="n">x_combined</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x1_pool</span><span class="p">,</span> <span class="n">x2_pool</span><span class="p">,</span> <span class="n">x3_pool</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Classification</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">x_combined</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+<span class="c1"># Wrap in CustomGNN for compatibility with ImGraph pipeline</span>
+<span class="c1"># (See the documentation for details on wrapping custom architectures)</span>
+</code></pre></div>
+<h4 id="best-practices-for-advanced-usage">Best Practices for Advanced Usage</h4>
+<ol>
+<li><strong>Layer Selection</strong>: Match the GNN layer type to your specific task:</li>
+<li>GCNConv: Good baseline, captures local structure</li>
+<li>GATConv: Better for nodes with varying importance</li>
+<li>SAGEConv: Better for large, heterogeneous graphs</li>
+<li>
+<p>Custom layers: For domain-specific feature extraction</p>
+</li>
+<li>
+<p><strong>Edge Features</strong>: Always use edge features when working with region adjacency graphs or when boundary information is important</p>
+</li>
+<li>
+<p><strong>Pooling Strategy</strong>: Choose based on your task:</p>
+</li>
+<li>'mean': Balanced representation of all nodes</li>
+<li>'max': Captures the most important features</li>
+<li>
+<p>'sum': Preserves information about graph size</p>
+</li>
+<li>
+<p><strong>Custom Layers</strong>: Create specialized layers when working with multiple feature types (texture, color, position) to process them differently</p>
+</li>
+</ol>
+<p>See the example scripts (<code>training_custom_gnn_example.py</code>) for more detailed implementations and use cases.</p>
 <h2 id="citation">📝 Citation</h2>
 <p>If you use <code>imgraph</code> in your research, please cite:</p>
 <div class="highlight"><pre><span></span><code>@software{imgraph2023,
