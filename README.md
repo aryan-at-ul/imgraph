@@ -1,6 +1,7 @@
 # imgraph: Graph Neural Networks for Image Processing
 
 [![Python Versions](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue)](https://pypi.org/project/imgraph/)
+[![PyPI Downloads](https://static.pepy.tech/badge/imgraph)](https://pepy.tech/projects/imgraph)
 [![PyPI Version](https://img.shields.io/badge/pypi-v0.1.4-blue)](https://pypi.org/project/imgraph/)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
